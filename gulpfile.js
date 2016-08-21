@@ -5,7 +5,9 @@ var uglify      = require('uglify-js-harmony');
 var minifyJs    = require('gulp-uglify/minifier');
 var rename      = require('gulp-rename');
 
-var sassPaths   = [];
+var sassPaths   = [
+    'bower_components/foundation-sites/scss'
+];
 
 gulp.task('sass', function() {
   return gulp.src('src/scss/**/*.scss')
