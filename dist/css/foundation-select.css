@@ -1,0 +1,88 @@
+/**
+ * Foundation for Sites by ZURB
+ * Version 6.2.3
+ * foundation.zurb.com
+ * Licensed under MIT Open Source
+ */
+.select-wrapper {
+  position: relative; }
+  .select-wrapper select[data-select] {
+    display: none; }
+  .select-wrapper .select-container {
+    position: relative; }
+    .select-wrapper .select-container input {
+      padding-right: 2.5rem;
+      background: #fefefe;
+      cursor: pointer; }
+    .select-wrapper .select-container .select-dropdown {
+      background-color: #fefefe;
+      border: 1px solid #cacaca;
+      border-top: none;
+      border-radius: 0 0 0 0;
+      display: block;
+      position: absolute;
+      visibility: hidden;
+      width: 100%;
+      z-index: 10;
+      -webkit-transition: border .4s;
+      transition: border .4s; }
+      .select-wrapper .select-container .select-dropdown.is-open {
+        visibility: visible;
+        border: 1px solid #8a8a8a;
+        border-top: none; }
+      .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container {
+        position: relative;
+        max-height: 300px; }
+        .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container ul {
+          margin: 0;
+          list-style-type: none; }
+          .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container ul > li {
+            display: table-cell;
+            vertical-align: middle; }
+            [data-whatinput='mouse'] .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container ul > li {
+              outline: 0; }
+          .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container ul > li > a {
+            display: block;
+            padding: 0.7rem 1rem;
+            line-height: 1; }
+          .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container ul input,
+          .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container ul a,
+          .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container ul button {
+            margin-bottom: 0; }
+          .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container ul > li {
+            display: block; }
+          .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container ul li a {
+            color: black;
+            padding: 0.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; }
+            .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container ul li a:hover, .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container ul li a:focus, .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container ul li a.selected {
+              color: #0a0a0a;
+              background: rgba(119, 119, 119, 0.075); }
+    .select-wrapper .select-container > i.select-triangle {
+      position: absolute;
+      top: 0;
+      right: 0;
+      color: #8a8a8a;
+      padding: 0.5rem;
+      line-height: 1.5;
+      width: 2.5rem;
+      text-align: center;
+      cursor: pointer; }
+  .select-wrapper .create-button-container {
+    position: absolute;
+    top: 0;
+    right: 0; }
+    .select-wrapper .create-button-container span {
+      display: inline-block;
+      vertical-align: middle;
+      text-align: center;
+      padding: 0.5rem;
+      line-height: 1.5;
+      width: 2.5rem; }
+    .select-wrapper .create-button-container .button {
+      vertical-align: middle;
+      margin: 0; }
