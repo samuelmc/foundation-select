@@ -1,6 +1,14 @@
 
 !function ($) {
     "use strict";
+
+    /**
+     * Select module.
+     * @module foundation.select
+     * @requires foundation.util.keyboard
+     * @requires foundation.dropdown
+     * @requires foundation.perfectScrollbar
+     */
     
     class Select {
         
@@ -38,26 +46,16 @@
                 $label = $(`label[for="${this.$select.attr('id')}"]`),
                 $wrapper = $('<div class="select-wrapper">'),
                 $container = $('<div class="select-container">'),
-                $scroll = $('<div class="select-dropdown-scroll-container" data-perfect-scrollbar>');
+                $scroll = $('<div data-perfect-scrollbar>');
 
             this.$select.wrap($wrapper);
             this.$select.after($container);
 
-            this.$element = $('<input>');
-            this.$element.attr({
-                'type': 'text',
-                'id': $id,
-                'readonly': '',
-                'data-toggle': $ddId
-            });
+            this.$element = $(`<input type="text" id="${$id}" data-toggle="${$ddId}" readonly>`);
             $container.append(this.$element);
-            $label.attr('id', $id);
+            $label.attr('for', $id);
 
-            this.$selectTriangle = $('<i>');
-            this.$selectTriangle.attr({
-                'class': 'select-triangle fa fa-caret-down',
-                'data-toggle': $ddId
-            });
+            this.$selectTriangle = $(`<i class="select-triangle fa ${this.options.iconClass}" data-toggle="${$ddId}">`);
             $container.append(this.$selectTriangle);
 
             this.$dropdown = $('<div>');
@@ -85,16 +83,17 @@
 
             this._events();
 
-            if (this.$autoSelect !== false) this.$options[this.$autoSelect].trigger('click');
+            if (this.$autoSelect !== false) this.$options[this.$autoSelect].find('a').trigger('click');
         }
 
         _setOption(index, option) {
-            if ($(option).val() == '') {
-                this.options.placeholder = this.options.placeholder == '' ? $(option).text() : this.options.placeholder;
+            var value = $(option).val(), text = $(option).text();
+            if (value == '') {
+                this.options.placeholder = this.options.placeholder == '' ? text : this.options.placeholder;
                 return;
             }
-            if ($(option).val() == this.options.value || $(option).attr('selected')) this.$autoSelect = index;
-            this.$options[index] = $(`<li><a data-value="${$(option).val()}">${$(option).text()}</a></li>`).appendTo(this.$list);
+            if (value == this.options.value || $(option).is(':selected')) this.$autoSelect = value;
+            this.$options[value] = $(`<li><a data-value="${value}">${text}</a></li>`).appendTo(this.$list);
         }
 
         /**
@@ -119,7 +118,8 @@
                         select_down: function () {
                             var $selected = _this.$list.find('a.selected'),
                                 $option;
-                            if ($selected.length > 0 && !$selected.parent().is(':last-child')) {
+                            if ($selected.parent().is(':last-child')) return false;
+                            if ($selected.length > 0) {
                                 $option = $selected.parent().next().find('a');
                             }
                             else {
@@ -135,7 +135,8 @@
                         select_up: function () {
                             var $selected = _this.$list.find('a.selected'),
                                 $option;
-                            if ($selected.length > 0 && !$selected.parent().is(':first-child')) {
+                            if ($selected.parent().is(':first-child')) return false;
+                            if ($selected.length > 0) {
                                 $option = $selected.parent().prev().find('a');
                             }
                             else {
@@ -165,17 +166,6 @@
 
         }
 
-        /**
-         * Destroys the select.
-         * @function
-         */
-        destroy() {
-            this.$wrapper.after(this.$select.detach());
-            this.$wrapper.remove();
-
-            Foundation.unregisterPlugin(this);
-        }
-
         select(e) {
             e.preventDefault();
             var $option = $(e.currentTarget);
@@ -186,33 +176,21 @@
             this.$dropdown.trigger('close');
             this.$element.focus();
         }
+
+        /**
+         * Destroys the select.
+         * @function
+         */
+        destroy() {
+            this.$wrapper.after(this.$select.detach());
+            this.$wrapper.remove();
+
+            Foundation.unregisterPlugin(this);
+        }
     }
 
     Select.defaults = {
-        /**
-         * Number of pixels between the select pane and the triggering element on open.
-         * @option
-         * @example 1
-         */
-        vOffset: 0,
-        /**
-         * Number of pixels between the select pane and the triggering element on open.
-         * @option
-         * @example 1
-         */
-        hOffset: 0,
-        /**
-         * Class applied to adjust open position. JS will test and fill this in.
-         * @option
-         * @example 'top'
-         */
-        positionClass: 'bottom',
-        /**
-         * Allows a click on the body to close the select.
-         * @option
-         * @example false
-         */
-        closeOnClick: true,
+        iconClass: 'fa fa-caret-down',
         placeholder: '',
         value: ''
     };

@@ -30,28 +30,28 @@
         visibility: visible;
         border: 1px solid #8a8a8a;
         border-top: none; }
-      .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container {
+      .select-wrapper .select-container .select-dropdown > div {
         position: relative;
-        max-height: 300px; }
-        .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container ul {
+        max-height: 18.75rem; }
+        .select-wrapper .select-container .select-dropdown > div ul {
           margin: 0;
           list-style-type: none; }
-          .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container ul > li {
+          .select-wrapper .select-container .select-dropdown > div ul > li {
             display: table-cell;
             vertical-align: middle; }
-            [data-whatinput='mouse'] .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container ul > li {
+            [data-whatinput='mouse'] .select-wrapper .select-container .select-dropdown > div ul > li {
               outline: 0; }
-          .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container ul > li > a {
+          .select-wrapper .select-container .select-dropdown > div ul > li > a {
             display: block;
             padding: 0.7rem 1rem;
             line-height: 1; }
-          .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container ul input,
-          .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container ul a,
-          .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container ul button {
+          .select-wrapper .select-container .select-dropdown > div ul input,
+          .select-wrapper .select-container .select-dropdown > div ul a,
+          .select-wrapper .select-container .select-dropdown > div ul button {
             margin-bottom: 0; }
-          .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container ul > li {
+          .select-wrapper .select-container .select-dropdown > div ul > li {
             display: block; }
-          .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container ul li a {
+          .select-wrapper .select-container .select-dropdown > div ul li a {
             color: black;
             padding: 0.5rem;
             font-size: 1rem;
@@ -59,7 +59,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis; }
-            .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container ul li a:hover, .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container ul li a:focus, .select-wrapper .select-container .select-dropdown .select-dropdown-scroll-container ul li a.selected {
+            .select-wrapper .select-container .select-dropdown > div ul li a:hover, .select-wrapper .select-container .select-dropdown > div ul li a:focus, .select-wrapper .select-container .select-dropdown > div ul li a.selected {
               color: #0a0a0a;
               background: rgba(119, 119, 119, 0.075); }
     .select-wrapper .select-container > i.select-triangle {

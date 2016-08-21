@@ -12,6 +12,8 @@ $select-border: $input-border !default;
 
 $select-color: $input-color !default;
 
+$select-dropdown-height: rem-calc(300);
+
 @mixin select-dropdown {
   background-color: $select-background;
   border: $input-border;
@@ -30,9 +32,9 @@ $select-color: $input-color !default;
     border-top: none;
   }
 
-  .select-dropdown-scroll-container {
+  & > div {
     position: relative;
-    max-height: 300px;
+    max-height: $select-dropdown-height;
 
     ul {
       @include menu-base;
