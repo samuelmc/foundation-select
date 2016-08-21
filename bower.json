@@ -1,0 +1,25 @@
+{
+  "name": "foundation-select",
+  "homepage": "https://github.com/samuelmc/foundation-select",
+  "authors": [
+    "samuelmc <samuel.moncarey1991@gmail.com>"
+  ],
+  "description": "Select plugin for Foundation sites 6",
+  "main": "src/js/foundation.select.js",
+  "keywords": [
+    "foundation",
+    "select"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "package.json",
+    "gulpfile.js",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "foundation-sites": "^6.2.3",
+    "font-awesome": "^4.6.3"
+  }
+}
