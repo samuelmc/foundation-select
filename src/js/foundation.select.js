@@ -1,3 +1,8 @@
+/**
+ * Foundation select by Samuel Moncarey
+ * Version 0.0.0
+ * Licensed under MIT Open Source
+ */
 
 !function ($) {
     "use strict";
@@ -116,9 +121,10 @@
                             }
                         },
                         select_down: function () {
+                            e.preventDefault();
                             var $selected = _this.$list.find('a.selected'),
                                 $option;
-                            if ($selected.parent().is(':last-child')) return false;
+                            if ($selected.parent().is(':last-child')) return;
                             if ($selected.length > 0) {
                                 $option = $selected.parent().next().find('a');
                             }
@@ -129,13 +135,13 @@
                             _this.$element.val($option.text());
                             _this.$list.find('li a').removeClass('selected');
                             $option.addClass('selected');
-                            e.preventDefault();
 
                         },
                         select_up: function () {
+                            e.preventDefault();
                             var $selected = _this.$list.find('a.selected'),
                                 $option;
-                            if ($selected.parent().is(':first-child')) return false;
+                            if ($selected.parent().is(':first-child')) return;
                             if ($selected.length > 0) {
                                 $option = $selected.parent().prev().find('a');
                             }
@@ -146,7 +152,6 @@
                             _this.$element.val($option.text());
                             _this.$list.find('li a').removeClass('selected');
                             $option.addClass('selected');
-                            e.preventDefault();
 
                         },
                         tab: function() {
@@ -190,7 +195,7 @@
     }
 
     Select.defaults = {
-        iconClass: 'fa fa-caret-down',
+        iconClass: 'fa-caret-down',
         placeholder: '',
         value: ''
     };
