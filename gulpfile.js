@@ -47,7 +47,6 @@ gulp.task('babel', function () {
         .pipe(gulp.dest('dist/js'));
 });
 
-
 gulp.task('default', ['babel', 'minify-js', 'sass', 'minify-css'], function () {
     gulp.watch(['src/js/**/*.js'], ['babel']);
     gulp.watch(['dist/js/**/*.js', '!dist/js/**/*.min.js'], ['minify-js']);
