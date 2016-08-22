@@ -88,7 +88,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 this.$list = $('<ul>');
                 $scroll.append(this.$list);
 
-                this.$options = [];
+                this.$options = {};
                 this.$autoSelect = false;
                 this.$select.find('option').each(this._setOption.bind(this));
 
