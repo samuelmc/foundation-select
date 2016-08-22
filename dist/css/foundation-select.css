@@ -4,6 +4,11 @@
  * foundation.zurb.com
  * Licensed under MIT Open Source
  */
+/**
+ * Foundation select by Samuel Moncarey
+ * Version 0.0.0
+ * Licensed under MIT Open Source
+ */
 .select-wrapper {
   position: relative; }
   .select-wrapper select[data-select] {
@@ -13,7 +18,10 @@
     .select-wrapper .select-container input {
       padding-right: 2.5rem;
       background: #fefefe;
-      cursor: pointer; }
+      cursor: pointer;
+      border-radius: 0; }
+      .select-wrapper .select-container input[aria-expanded="true"] {
+        border-radius: 0 0 0 0; }
     .select-wrapper .select-container .select-dropdown {
       background-color: #fefefe;
       border: 1px solid #cacaca;
@@ -72,17 +80,3 @@
       width: 2.5rem;
       text-align: center;
       cursor: pointer; }
-  .select-wrapper .create-button-container {
-    position: absolute;
-    top: 0;
-    right: 0; }
-    .select-wrapper .create-button-container span {
-      display: inline-block;
-      vertical-align: middle;
-      text-align: center;
-      padding: 0.5rem;
-      line-height: 1.5;
-      width: 2.5rem; }
-    .select-wrapper .create-button-container .button {
-      vertical-align: middle;
-      margin: 0; }
