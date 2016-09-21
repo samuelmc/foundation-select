@@ -14,9 +14,9 @@
      * @requires foundation.dropdown
      * @requires foundation.perfectScrollbar
      */
-    
+
     class Select {
-        
+
         constructor(select, options) {
             this.$select = select;
 
@@ -46,7 +46,7 @@
          * @private
          */
         _init() {
-            var $id = Foundation.GetYoDigits(6, 'select'),
+            let $id = Foundation.GetYoDigits(6, 'select'),
                 $ddId = Foundation.GetYoDigits(6, 'select-dropdown'),
                 $label = $(`label[for="${this.$select.attr('id')}"]`),
                 $wrapper = $('<div class="select-wrapper">'),
@@ -88,11 +88,13 @@
 
             this._events();
 
-            if (this.$autoSelect !== false) this.$options[this.$autoSelect].find('a').trigger('click');
+            if (this.$autoSelect !== false) {
+                this.$options[this.$autoSelect].find('a').trigger('click');
+            }
         }
 
         _setOption(index, option) {
-            var value = $(option).val(), text = $(option).text();
+            let value = $(option).val(), text = $(option).text();
             if (value == '') {
                 this.options.placeholder = this.options.placeholder == '' ? text : this.options.placeholder;
                 return;
@@ -107,23 +109,24 @@
          * @private
          */
         _events() {
-            var _this = this;
+            const _this = this;
             this.$element
                 .add(this.$dropdown)
                 .off('keybord.zf.dropdown')
-                .on('keydown.zf.select', function(e) {
+                .on('keydown.zf.select', (e) => {
                     Foundation.Keyboard.handleKey(e, 'Select', {
-                        open: function() {
+                        open: () => {
                             if ($target.is(_this.$element)) {
                                 _this.$dropdown.trigger('open');
                                 _this.$dropdown.attr('tabindex', -1).focus();
                                 e.preventDefault();
                             }
                         },
-                        select_down: function () {
+                        select_down: () => {
                             e.preventDefault();
-                            var $selected = _this.$list.find('a.selected'),
-                                $option;
+                            const $selected = _this.$list.find('a.selected');
+                            let $option;
+
                             if ($selected.parent().is(':last-child')) return;
                             if ($selected.length > 0) {
                                 $option = $selected.parent().next().find('a');
@@ -137,7 +140,7 @@
                             $option.addClass('selected');
 
                         },
-                        select_up: function () {
+                        select_up: () => {
                             e.preventDefault();
                             var $selected = _this.$list.find('a.selected'),
                                 $option;
@@ -154,26 +157,26 @@
                             $option.addClass('selected');
 
                         },
-                        tab: function() {
+                        tab: () => {
                             _this.$dropdown.trigger('close');
                         },
-                        close: function() {
+                        close: () => {
                             _this.$dropdown.trigger('close');
                             _this.$element.focus();
                         }
                     });
                 });
 
-            $.each(this.$options, function () {
+            $.each(this.$options, () => {
                 var $target = $(this).find('a');
-                $target.on('click', _this.select.bind(_this));
+                $target.on('click', (e) => _this.select(e));
             });
 
         }
 
         select(e) {
             e.preventDefault();
-            var $option = $(e.currentTarget);
+            const $option = $(e.currentTarget);
             this.$select.val($option.data('value'));
             this.$element.val($option.text());
             this.$list.find('li a').removeClass('selected');
@@ -192,13 +195,15 @@
 
             Foundation.unregisterPlugin(this);
         }
-    }
 
-    Select.defaults = {
-        iconClass: 'fa-caret-down',
-        placeholder: '',
-        value: ''
-    };
+        static get defaults() {
+            return {
+                iconClass: 'fa-caret-down',
+                placeholder: '',
+                value: ''
+            };
+        }
+    }
 
     // Window exports
     Foundation.plugin(Select, 'Select');

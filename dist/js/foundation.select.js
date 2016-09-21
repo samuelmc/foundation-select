@@ -98,7 +98,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                 this._events();
 
-                if (this.$autoSelect !== false) this.$options[this.$autoSelect].find('a').trigger('click');
+                if (this.$autoSelect !== false) {
+                    this.$options[this.$autoSelect].find('a').trigger('click');
+                }
             }
         }, {
             key: '_setOption',
@@ -122,6 +124,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }, {
             key: '_events',
             value: function _events() {
+                var _this2 = this;
+
                 var _this = this;
                 this.$element.add(this.$dropdown).off('keybord.zf.dropdown').on('keydown.zf.select', function (e) {
                     Foundation.Keyboard.handleKey(e, 'Select', {
@@ -134,8 +138,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         },
                         select_down: function select_down() {
                             e.preventDefault();
-                            var $selected = _this.$list.find('a.selected'),
-                                $option;
+                            var $selected = _this.$list.find('a.selected');
+                            var $option = void 0;
+
                             if ($selected.parent().is(':last-child')) return;
                             if ($selected.length > 0) {
                                 $option = $selected.parent().next().find('a');
@@ -173,8 +178,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 });
 
                 $.each(this.$options, function () {
-                    var $target = $(this).find('a');
-                    $target.on('click', _this.select.bind(_this));
+                    var $target = $(_this2).find('a');
+                    $target.on('click', function (e) {
+                        return _this.select(e);
+                    });
                 });
             }
         }, {
@@ -203,17 +210,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                 Foundation.unregisterPlugin(this);
             }
+        }], [{
+            key: 'defaults',
+            get: function get() {
+                return {
+                    iconClass: 'fa-caret-down',
+                    placeholder: '',
+                    value: ''
+                };
+            }
         }]);
 
         return Select;
     }();
 
-    Select.defaults = {
-        iconClass: 'fa-caret-down',
-        placeholder: '',
-        value: ''
-    };
-
     // Window exports
+
+
     Foundation.plugin(Select, 'Select');
 }(jQuery);
