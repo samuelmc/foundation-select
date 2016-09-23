@@ -5,4 +5,8 @@ install:
   - npm install -g bower
   - npm install
   - bower install
-script: gulp
+script:
+  - gulp sass
+  - gulp minify-css
+  - gulp babel
+  - gulp minify-js
