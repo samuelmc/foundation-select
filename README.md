@@ -22,6 +22,7 @@ Add all nessesary files to your html. This plugin only works with foundation and
 <link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.min.css">
 ...
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js"></script>
 <script src="bower_components/foundation-sites/dist/foundation.min.js"></script>
 <script src="bower_components/foundation-perfect-scrollbar/dist/js/foundation.perfectScrollbar.min.js"></script>
 <script src="bower_components/foundation-select/dist/js/foundation.select.min.js"></script>
