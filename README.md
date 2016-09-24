@@ -71,6 +71,8 @@ Run foundation and it will automaticaly initialize all the datepickers
 $(document).foundation();
 ```
 
+At the moment it does not work with multiple select.
+
 **Plugin options**
 
 |Name     |Default  |Descrition|
