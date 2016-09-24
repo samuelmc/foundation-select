@@ -167,9 +167,10 @@
                     });
                 });
 
-            $.each(this.$options, () => {
-                var $target = $(this).find('a');
-                $target.on('click', (e) => _this.select(e));
+            $.each(this.$options, (index, option) => {
+                var $target = $(option).find('a');
+                console.log($(option));
+                $target.on('click', _this.select.bind(_this));
             });
 
         }

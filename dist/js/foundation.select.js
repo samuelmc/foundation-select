@@ -124,8 +124,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }, {
             key: '_events',
             value: function _events() {
-                var _this2 = this;
-
                 var _this = this;
                 this.$element.add(this.$dropdown).off('keybord.zf.dropdown').on('keydown.zf.select', function (e) {
                     Foundation.Keyboard.handleKey(e, 'Select', {
@@ -177,11 +175,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
                 });
 
-                $.each(this.$options, function () {
-                    var $target = $(_this2).find('a');
-                    $target.on('click', function (e) {
-                        return _this.select(e);
-                    });
+                $.each(this.$options, function (index, option) {
+                    var $target = $(option).find('a');
+                    console.log($(option));
+                    $target.on('click', _this.select.bind(_this));
                 });
             }
         }, {
