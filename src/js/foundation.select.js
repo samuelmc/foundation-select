@@ -26,7 +26,9 @@
             }
 
             this.options = $.extend({}, Select.defaults, this.$select.data(), options);
-            this._init();
+
+            if (this.$select.is('select[multiple]')) this._initMultiple();
+            else this._init();
 
             Foundation.registerPlugin(this, 'Select');
             Foundation.Keyboard.register('Select', {
@@ -56,6 +58,8 @@
             this.$select.wrap($wrapper);
             this.$select.after($container);
 
+
+
             this.$element = $(`<input type="text" id="${$id}" data-toggle="${$ddId}" readonly>`);
             $container.append(this.$element);
             $label.attr('for', $id);
@@ -74,6 +78,39 @@
             });
             this.$dropdown.append($scroll);
             $container.append(this.$dropdown);
+
+            this.$list = $('<ul>');
+            $scroll.append(this.$list);
+
+            this.$options = {};
+            this.$autoSelect = false;
+            this.$select.find('option').each(this._setOption.bind(this));
+
+            this.$element.attr('placeholder', this.options.placeholder);
+
+            $container.foundation();
+
+            this._events();
+
+            if (this.$autoSelect !== false) {
+                this.$options[this.$autoSelect].find('a').trigger('click');
+            }
+        }
+
+        _initMultiple() {
+            const $id = Foundation.GetYoDigits(6, 'select'),
+                  $label = $(`label[for="${this.$select.attr('id')}"]`),
+                  $wrapper = $('<div class="select-wrapper">'),
+                  $container = $('<div class="select-container">'),
+                  $scroll = $('<div data-perfect-scrollbar>');
+
+            this.$select.wrap($wrapper);
+            this.$select.after($container);
+
+            this.$element = $(`<a id="${$id}" class="slelect-multiple-element">`);
+            this.$element.append($scroll);
+            $container.append(this.$element);
+            $label.attr('for', $id);
 
             this.$list = $('<ul>');
             $scroll.append(this.$list);

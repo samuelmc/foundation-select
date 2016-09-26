@@ -7,7 +7,9 @@
 $select-background: $input-background !default;
 $select-border: $input-border !default;
 $select-color: $input-color !default;
-$select-dropdown-height: rem-calc(300);
+$select-dropdown-height: rem-calc(300) !default;
+$select-multiple-size-default: 5 !default;
+$select-multiple-size-max: 12 !default;
 
 @mixin select-dropdown {
   background-color: $select-background;
@@ -53,6 +55,10 @@ $select-dropdown-height: rem-calc(300);
   }
 }
 
+@mixin select-size-calc($size) {
+  max-height: $size * ($form-spacing + ($input-font-size * $global-lineheight));
+}
+
 @mixin select-container {
   position: relative;
 
@@ -82,6 +88,20 @@ $select-dropdown-height: rem-calc(300);
     cursor: pointer;
   }
 
+  a.slelect-multiple-element {
+    @include select-dropdown;
+    z-index: 0;
+    visibility: visible;
+    border-top: $select-border;
+    &:focus {
+      border: $input-border-focus;
+    }
+
+    & > div {
+      @include select-size-calc($select-multiple-size-default);
+    }
+  }
+
 }
 
 @mixin foundation-select {
@@ -89,6 +109,11 @@ $select-dropdown-height: rem-calc(300);
     position: relative;
     select[data-select] {
       display: none;
+      @for $size from 1 through $select-multiple-size-max {
+        &[size="#{$size}"] + .select-container a.slelect-multiple-element > div {
+          @include select-size-calc($size);
+        }
+      }
     }
     .select-container {
       @include select-container;
