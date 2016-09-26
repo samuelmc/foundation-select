@@ -140,36 +140,38 @@
 
         _selectArrowDown(e) {
             e.preventDefault();
-            const $selected = _this.$list.find('a.selected');
+            const $selected = $(this.$list.find('a.selected')[this.$list.find('a.selected').length -1]);
             let $option;
 
-            if ($selected.parent().is(':last-child')) return;
-            if ($selected.length > 0) {
+            if ($selected.parent().is(':last-child')) {
+                $option = $selected;
+            }
+            else if ($selected.length > 0) {
                 $option = $selected.parent().next().find('a');
             }
             else {
-                $option = _this.$list.find('li:first-child a');
+                $option = this.$list.find('li:first-child a');
             }
-            _this.$select.val($option.data('value'));
-            _this.$element.val($option.text());
-            _this.$list.find('li a').removeClass('selected');
+            this.$select.val($option.data('value'));
+            this.$element.val($option.text());
+            this.$list.find('li a').removeClass('selected');
             $option.addClass('selected');
         }
 
         _selectArrowUp(e) {
             e.preventDefault();
-            var $selected = _this.$list.find('a.selected'),
-                $option;
+            const $selected = $(this.$list.find('a.selected')[this.$list.find('a.selected').length -1]);
+            let $option;
             if ($selected.parent().is(':first-child')) return;
             if ($selected.length > 0) {
                 $option = $selected.parent().prev().find('a');
             }
             else {
-                $option = _this.$list.find('li:last-child a');
+                $option = this.$list.find('li:last-child a');
             }
-            _this.$select.val($option.data('value'));
-            _this.$element.val($option.text());
-            _this.$list.find('li a').removeClass('selected');
+            this.$select.val($option.data('value'));
+            this.$element.val($option.text());
+            this.$list.find('li a').removeClass('selected');
             $option.addClass('selected');
         }
 
@@ -230,7 +232,6 @@
 
             $.each(this.$options, (index, option) => {
                 var $target = $(option).find('a');
-                console.log($(option));
                 $target.on('click', _this.select.bind(_this));
             });
 
