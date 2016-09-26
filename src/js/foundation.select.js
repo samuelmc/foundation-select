@@ -27,7 +27,7 @@
 
             this.options = $.extend({}, Select.defaults, this.$select.data(), options);
 
-            if (this.$select.is('select[multiple]')) this._initMultiple();
+            if (this.$select.prop('multiple')) this._initMultiple();
             else this._init();
 
             Foundation.registerPlugin(this, 'Select');
@@ -47,6 +47,39 @@
          * @function
          * @private
          */
+        _initMultiple() {
+            let $id = Foundation.GetYoDigits(6, 'select'),
+                $label = $(`label[for="${this.$select.attr('id')}"]`),
+                $wrapper = $('<div class="select-wrapper">'),
+                $container = $('<div class="select-container">'),
+                $scroll = $('<div data-perfect-scrollbar>');
+
+            this.$select.wrap($wrapper);
+            this.$select.after($container);
+
+            this.$element = $(`<div id="${$id}" class="multiple-select" tabindex="0">`);
+            this.$element.append($scroll);
+            $container.append(this.$element);
+            $label.attr('for', $id);
+
+            this.$list = $('<ul>');
+            $scroll.append(this.$list);
+
+            this.$options = {};
+            this.$autoSelect = false;
+            this.$select.find('option').each(this._setOption.bind(this));
+
+            this.$element.attr('placeholder', this.options.placeholder);
+
+            $container.foundation();
+
+            this._eventsMultiple();
+
+            if (this.$autoSelect !== false) {
+                this.$options[this.$autoSelect].find('a').trigger('click');
+            }
+        }
+
         _init() {
             let $id = Foundation.GetYoDigits(6, 'select'),
                 $ddId = Foundation.GetYoDigits(6, 'select-dropdown'),
@@ -57,8 +90,6 @@
 
             this.$select.wrap($wrapper);
             this.$select.after($container);
-
-
 
             this.$element = $(`<input type="text" id="${$id}" data-toggle="${$ddId}" readonly>`);
             $container.append(this.$element);
@@ -97,39 +128,6 @@
             }
         }
 
-        _initMultiple() {
-            const $id = Foundation.GetYoDigits(6, 'select'),
-                  $label = $(`label[for="${this.$select.attr('id')}"]`),
-                  $wrapper = $('<div class="select-wrapper">'),
-                  $container = $('<div class="select-container">'),
-                  $scroll = $('<div data-perfect-scrollbar>');
-
-            this.$select.wrap($wrapper);
-            this.$select.after($container);
-
-            this.$element = $(`<a id="${$id}" class="slelect-multiple-element">`);
-            this.$element.append($scroll);
-            $container.append(this.$element);
-            $label.attr('for', $id);
-
-            this.$list = $('<ul>');
-            $scroll.append(this.$list);
-
-            this.$options = {};
-            this.$autoSelect = false;
-            this.$select.find('option').each(this._setOption.bind(this));
-
-            this.$element.attr('placeholder', this.options.placeholder);
-
-            $container.foundation();
-
-            this._events();
-
-            if (this.$autoSelect !== false) {
-                this.$options[this.$autoSelect].find('a').trigger('click');
-            }
-        }
-
         _setOption(index, option) {
             let value = $(option).val(), text = $(option).text();
             if (value == '') {
@@ -138,6 +136,65 @@
             }
             if (value == this.options.value || $(option).is(':selected')) this.$autoSelect = value;
             this.$options[value] = $(`<li><a data-value="${value}">${text}</a></li>`).appendTo(this.$list);
+        }
+
+        _selectArrowDown(e) {
+            e.preventDefault();
+            const $selected = _this.$list.find('a.selected');
+            let $option;
+
+            if ($selected.parent().is(':last-child')) return;
+            if ($selected.length > 0) {
+                $option = $selected.parent().next().find('a');
+            }
+            else {
+                $option = _this.$list.find('li:first-child a');
+            }
+            _this.$select.val($option.data('value'));
+            _this.$element.val($option.text());
+            _this.$list.find('li a').removeClass('selected');
+            $option.addClass('selected');
+        }
+
+        _selectArrowUp(e) {
+            e.preventDefault();
+            var $selected = _this.$list.find('a.selected'),
+                $option;
+            if ($selected.parent().is(':first-child')) return;
+            if ($selected.length > 0) {
+                $option = $selected.parent().prev().find('a');
+            }
+            else {
+                $option = _this.$list.find('li:last-child a');
+            }
+            _this.$select.val($option.data('value'));
+            _this.$element.val($option.text());
+            _this.$list.find('li a').removeClass('selected');
+            $option.addClass('selected');
+        }
+
+        /**
+         * Adds event listeners to the element utilizing the triggers utility library.
+         * @function
+         * @private
+         */
+        _eventsMultiple() {
+            const _this = this;
+            this.$element
+                .add(this.$dropdown)
+                .off('keybord.zf.dropdown')
+                .on('keydown.zf.select', (e) => {
+                    Foundation.Keyboard.handleKey(e, 'Select', {
+                        select_down: () => _this._selectArrowDown(e),
+                        select_up: () => _this._selectArrowUp(e)
+                    });
+                });
+
+            $.each(this.$options, (index, option) => {
+                var $target = $(option).find('a');
+                $target.on('click', _this.select.bind(_this));
+            });
+
         }
 
         /**
@@ -159,41 +216,8 @@
                                 e.preventDefault();
                             }
                         },
-                        select_down: () => {
-                            e.preventDefault();
-                            const $selected = _this.$list.find('a.selected');
-                            let $option;
-
-                            if ($selected.parent().is(':last-child')) return;
-                            if ($selected.length > 0) {
-                                $option = $selected.parent().next().find('a');
-                            }
-                            else {
-                                $option = _this.$list.find('li:first-child a');
-                            }
-                            _this.$select.val($option.data('value'));
-                            _this.$element.val($option.text());
-                            _this.$list.find('li a').removeClass('selected');
-                            $option.addClass('selected');
-
-                        },
-                        select_up: () => {
-                            e.preventDefault();
-                            var $selected = _this.$list.find('a.selected'),
-                                $option;
-                            if ($selected.parent().is(':first-child')) return;
-                            if ($selected.length > 0) {
-                                $option = $selected.parent().prev().find('a');
-                            }
-                            else {
-                                $option = _this.$list.find('li:last-child a');
-                            }
-                            _this.$select.val($option.data('value'));
-                            _this.$element.val($option.text());
-                            _this.$list.find('li a').removeClass('selected');
-                            $option.addClass('selected');
-
-                        },
+                        select_down: () => _this._selectArrowDown(e),
+                        select_up: () => _this._selectArrowUp(e),
                         tab: () => {
                             _this.$dropdown.trigger('close');
                         },
@@ -214,12 +238,34 @@
 
         select(e) {
             e.preventDefault();
-            const $option = $(e.currentTarget);
-            this.$select.val($option.data('value'));
-            this.$element.val($option.text());
-            this.$list.find('li a').removeClass('selected');
-            $option.addClass('selected');
-            this.$dropdown.trigger('close');
+
+            const $option = $(e.currentTarget),
+                  _this = this;
+            let unselect = false;
+
+            if (this.$select.is('select[multiple]') && e.ctrlKey) {
+                $.each(this.$select.val(), function (index, value) {
+                    if ($option.data('value') == value) {
+                        let tempValue = _this.$select.val();
+                        tempValue.splice(index, 1);
+                        _this.$select.val(tempValue);
+                        unselect = true;
+                    }
+                });
+                if (!unselect) this.$select.val(($.isArray(this.$select.val()) ? this.$select.val():[]).concat($option.data('value')));
+            }
+            else if (this.$select.is('select[multiple]')) {
+                this.$select.val($option.data('value'));
+                this.$list.find('li a').removeClass('selected');
+            }
+            else {
+                this.$select.val($option.data('value'));
+                this.$element.val($option.text());
+                this.$list.find('li a').removeClass('selected');
+                this.$dropdown.trigger('close');
+            }
+            if (!unselect) $option.addClass('selected');
+            else $option.removeClass('selected');
             this.$element.focus();
         }
 
