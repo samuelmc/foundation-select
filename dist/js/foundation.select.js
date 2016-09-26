@@ -249,6 +249,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                 $.each(this.$options, function (index, option) {
                     var $target = $(option).find('a');
+                    console.log($(option));
                     $target.on('click', _this.select.bind(_this));
                 });
             }

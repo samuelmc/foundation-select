@@ -90,6 +90,8 @@ $select-multiple-size-max: 12 !default;
       outline: none;
     }
     & > div {
+      @include select-size-calc($select-multiple-size-default);
+
       ul {
         li {
           a {
@@ -126,20 +128,6 @@ $select-multiple-size-max: 12 !default;
     cursor: pointer;
   }
 
-  a.slelect-multiple-element {
-    @include select-dropdown;
-    z-index: 0;
-    visibility: visible;
-    border-top: $select-border;
-    &:focus {
-      border: $input-border-focus;
-    }
-
-    & > div {
-      @include select-size-calc($select-multiple-size-default);
-    }
-  }
-
 }
 
 @mixin foundation-select {
@@ -148,7 +136,7 @@ $select-multiple-size-max: 12 !default;
     select[data-select] {
       display: none;
       @for $size from 1 through $select-multiple-size-max {
-        &[size="#{$size}"] + .select-container a.slelect-multiple-element > div {
+        &[size="#{$size}"] + .select-container .multiple-select > div {
           @include select-size-calc($size);
         }
       }

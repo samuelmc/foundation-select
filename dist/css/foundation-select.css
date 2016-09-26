@@ -13,29 +13,29 @@
   position: relative; }
   .select-wrapper select[data-select] {
     display: none; }
-    .select-wrapper select[data-select][size="1"] + .select-container a.slelect-multiple-element > div {
+    .select-wrapper select[data-select][size="1"] + .select-container .multiple-select > div {
       max-height: 2.5rem; }
-    .select-wrapper select[data-select][size="2"] + .select-container a.slelect-multiple-element > div {
+    .select-wrapper select[data-select][size="2"] + .select-container .multiple-select > div {
       max-height: 5rem; }
-    .select-wrapper select[data-select][size="3"] + .select-container a.slelect-multiple-element > div {
+    .select-wrapper select[data-select][size="3"] + .select-container .multiple-select > div {
       max-height: 7.5rem; }
-    .select-wrapper select[data-select][size="4"] + .select-container a.slelect-multiple-element > div {
+    .select-wrapper select[data-select][size="4"] + .select-container .multiple-select > div {
       max-height: 10rem; }
-    .select-wrapper select[data-select][size="5"] + .select-container a.slelect-multiple-element > div {
+    .select-wrapper select[data-select][size="5"] + .select-container .multiple-select > div {
       max-height: 12.5rem; }
-    .select-wrapper select[data-select][size="6"] + .select-container a.slelect-multiple-element > div {
+    .select-wrapper select[data-select][size="6"] + .select-container .multiple-select > div {
       max-height: 15rem; }
-    .select-wrapper select[data-select][size="7"] + .select-container a.slelect-multiple-element > div {
+    .select-wrapper select[data-select][size="7"] + .select-container .multiple-select > div {
       max-height: 17.5rem; }
-    .select-wrapper select[data-select][size="8"] + .select-container a.slelect-multiple-element > div {
+    .select-wrapper select[data-select][size="8"] + .select-container .multiple-select > div {
       max-height: 20rem; }
-    .select-wrapper select[data-select][size="9"] + .select-container a.slelect-multiple-element > div {
+    .select-wrapper select[data-select][size="9"] + .select-container .multiple-select > div {
       max-height: 22.5rem; }
-    .select-wrapper select[data-select][size="10"] + .select-container a.slelect-multiple-element > div {
+    .select-wrapper select[data-select][size="10"] + .select-container .multiple-select > div {
       max-height: 25rem; }
-    .select-wrapper select[data-select][size="11"] + .select-container a.slelect-multiple-element > div {
+    .select-wrapper select[data-select][size="11"] + .select-container .multiple-select > div {
       max-height: 27.5rem; }
-    .select-wrapper select[data-select][size="12"] + .select-container a.slelect-multiple-element > div {
+    .select-wrapper select[data-select][size="12"] + .select-container .multiple-select > div {
       max-height: 30rem; }
   .select-wrapper .select-container {
     position: relative; }
@@ -111,19 +111,21 @@
         -webkit-box-shadow: 0 0 5px #cacaca;
                 box-shadow: 0 0 5px #cacaca;
         outline: none; }
-      .select-wrapper .select-container .multiple-select > div ul li a:before {
-        content: "";
-        display: inline-block;
-        font-family: FontAwesome, sans-serif;
-        font-size: inherit;
-        text-rendering: auto;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        width: 1.5em;
-        text-align: center;
-        vertical-align: baseline; }
-      .select-wrapper .select-container .multiple-select > div ul li a.selected:before {
-        content: "\f00c"; }
+      .select-wrapper .select-container .multiple-select > div {
+        max-height: 12.5rem; }
+        .select-wrapper .select-container .multiple-select > div ul li a:before {
+          content: "";
+          display: inline-block;
+          font-family: FontAwesome, sans-serif;
+          font-size: inherit;
+          text-rendering: auto;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          width: 1.5em;
+          text-align: center;
+          vertical-align: baseline; }
+        .select-wrapper .select-container .multiple-select > div ul li a.selected:before {
+          content: "\f00c"; }
     .select-wrapper .select-container > i.select-triangle {
       position: absolute;
       top: 0;
@@ -134,58 +136,3 @@
       width: 2.5rem;
       text-align: center;
       cursor: pointer; }
-    .select-wrapper .select-container a.slelect-multiple-element {
-      background-color: #fefefe;
-      border: 1px solid #cacaca;
-      border-top: none;
-      border-radius: 0 0 0 0;
-      display: block;
-      position: absolute;
-      visibility: hidden;
-      width: 100%;
-      z-index: 10;
-      -webkit-transition: border .4s;
-      transition: border .4s;
-      z-index: 0;
-      visibility: visible;
-      border-top: 1px solid #cacaca; }
-      .select-wrapper .select-container a.slelect-multiple-element.is-open {
-        visibility: visible;
-        border: 1px solid #8a8a8a;
-        border-top: none; }
-      .select-wrapper .select-container a.slelect-multiple-element > div {
-        position: relative;
-        max-height: 18.75rem; }
-        .select-wrapper .select-container a.slelect-multiple-element > div ul {
-          margin: 0;
-          list-style-type: none; }
-          .select-wrapper .select-container a.slelect-multiple-element > div ul > li {
-            display: table-cell;
-            vertical-align: middle; }
-            [data-whatinput='mouse'] .select-wrapper .select-container a.slelect-multiple-element > div ul > li {
-              outline: 0; }
-          .select-wrapper .select-container a.slelect-multiple-element > div ul > li > a {
-            display: block;
-            padding: 0.7rem 1rem;
-            line-height: 1; }
-          .select-wrapper .select-container a.slelect-multiple-element > div ul input,
-          .select-wrapper .select-container a.slelect-multiple-element > div ul a,
-          .select-wrapper .select-container a.slelect-multiple-element > div ul button {
-            margin-bottom: 0; }
-          .select-wrapper .select-container a.slelect-multiple-element > div ul > li {
-            display: block; }
-          .select-wrapper .select-container a.slelect-multiple-element > div ul li a {
-            color: black;
-            padding: 0.5rem;
-            font-size: 1rem;
-            line-height: 1.5;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis; }
-            .select-wrapper .select-container a.slelect-multiple-element > div ul li a:hover, .select-wrapper .select-container a.slelect-multiple-element > div ul li a:focus, .select-wrapper .select-container a.slelect-multiple-element > div ul li a.selected {
-              color: #0a0a0a;
-              background: rgba(119, 119, 119, 0.075); }
-      .select-wrapper .select-container a.slelect-multiple-element:focus {
-        border: 1px solid #8a8a8a; }
-      .select-wrapper .select-container a.slelect-multiple-element > div {
-        max-height: 12.5rem; }
