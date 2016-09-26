@@ -33,7 +33,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
 
             this.options = $.extend({}, Select.defaults, this.$select.data(), options);
-            this._init();
+
+            if (this.$select.prop('multiple')) this._initMultiple();else this._init();
 
             Foundation.registerPlugin(this, 'Select');
             Foundation.Keyboard.register('Select', {
@@ -54,6 +55,40 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
         _createClass(Select, [{
+            key: '_initMultiple',
+            value: function _initMultiple() {
+                var $id = Foundation.GetYoDigits(6, 'select'),
+                    $label = $('label[for="' + this.$select.attr('id') + '"]'),
+                    $wrapper = $('<div class="select-wrapper">'),
+                    $container = $('<div class="select-container">'),
+                    $scroll = $('<div data-perfect-scrollbar>');
+
+                this.$select.wrap($wrapper);
+                this.$select.after($container);
+
+                this.$element = $('<div id="' + $id + '" class="multiple-select" tabindex="0">');
+                this.$element.append($scroll);
+                $container.append(this.$element);
+                $label.attr('for', $id);
+
+                this.$list = $('<ul>');
+                $scroll.append(this.$list);
+
+                this.$options = {};
+                this.$autoSelect = false;
+                this.$select.find('option').each(this._setOption.bind(this));
+
+                this.$element.attr('placeholder', this.options.placeholder);
+
+                $container.foundation();
+
+                this._eventsMultiple();
+
+                if (this.$autoSelect !== false) {
+                    this.$options[this.$autoSelect].find('a').trigger('click');
+                }
+            }
+        }, {
             key: '_init',
             value: function _init() {
                 var $id = Foundation.GetYoDigits(6, 'select'),
@@ -114,6 +149,68 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 if (value == this.options.value || $(option).is(':selected')) this.$autoSelect = value;
                 this.$options[value] = $('<li><a data-value="' + value + '">' + text + '</a></li>').appendTo(this.$list);
             }
+        }, {
+            key: '_selectArrowDown',
+            value: function _selectArrowDown(e) {
+                e.preventDefault();
+                var $selected = _this.$list.find('a.selected');
+                var $option = void 0;
+
+                if ($selected.parent().is(':last-child')) return;
+                if ($selected.length > 0) {
+                    $option = $selected.parent().next().find('a');
+                } else {
+                    $option = _this.$list.find('li:first-child a');
+                }
+                _this.$select.val($option.data('value'));
+                _this.$element.val($option.text());
+                _this.$list.find('li a').removeClass('selected');
+                $option.addClass('selected');
+            }
+        }, {
+            key: '_selectArrowUp',
+            value: function _selectArrowUp(e) {
+                e.preventDefault();
+                var $selected = _this.$list.find('a.selected'),
+                    $option;
+                if ($selected.parent().is(':first-child')) return;
+                if ($selected.length > 0) {
+                    $option = $selected.parent().prev().find('a');
+                } else {
+                    $option = _this.$list.find('li:last-child a');
+                }
+                _this.$select.val($option.data('value'));
+                _this.$element.val($option.text());
+                _this.$list.find('li a').removeClass('selected');
+                $option.addClass('selected');
+            }
+
+            /**
+             * Adds event listeners to the element utilizing the triggers utility library.
+             * @function
+             * @private
+             */
+
+        }, {
+            key: '_eventsMultiple',
+            value: function _eventsMultiple() {
+                var _this = this;
+                this.$element.add(this.$dropdown).off('keybord.zf.dropdown').on('keydown.zf.select', function (e) {
+                    Foundation.Keyboard.handleKey(e, 'Select', {
+                        select_down: function select_down() {
+                            return _this._selectArrowDown(e);
+                        },
+                        select_up: function select_up() {
+                            return _this._selectArrowUp(e);
+                        }
+                    });
+                });
+
+                $.each(this.$options, function (index, option) {
+                    var $target = $(option).find('a');
+                    $target.on('click', _this.select.bind(_this));
+                });
+            }
 
             /**
              * Adds event listeners to the element utilizing the triggers utility library.
@@ -135,35 +232,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                             }
                         },
                         select_down: function select_down() {
-                            e.preventDefault();
-                            var $selected = _this.$list.find('a.selected');
-                            var $option = void 0;
-
-                            if ($selected.parent().is(':last-child')) return;
-                            if ($selected.length > 0) {
-                                $option = $selected.parent().next().find('a');
-                            } else {
-                                $option = _this.$list.find('li:first-child a');
-                            }
-                            _this.$select.val($option.data('value'));
-                            _this.$element.val($option.text());
-                            _this.$list.find('li a').removeClass('selected');
-                            $option.addClass('selected');
+                            return _this._selectArrowDown(e);
                         },
                         select_up: function select_up() {
-                            e.preventDefault();
-                            var $selected = _this.$list.find('a.selected'),
-                                $option;
-                            if ($selected.parent().is(':first-child')) return;
-                            if ($selected.length > 0) {
-                                $option = $selected.parent().prev().find('a');
-                            } else {
-                                $option = _this.$list.find('li:last-child a');
-                            }
-                            _this.$select.val($option.data('value'));
-                            _this.$element.val($option.text());
-                            _this.$list.find('li a').removeClass('selected');
-                            $option.addClass('selected');
+                            return _this._selectArrowUp(e);
                         },
                         tab: function tab() {
                             _this.$dropdown.trigger('close');
@@ -177,7 +249,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                 $.each(this.$options, function (index, option) {
                     var $target = $(option).find('a');
-                    console.log($(option));
                     $target.on('click', _this.select.bind(_this));
                 });
             }
@@ -185,12 +256,31 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             key: 'select',
             value: function select(e) {
                 e.preventDefault();
-                var $option = $(e.currentTarget);
-                this.$select.val($option.data('value'));
-                this.$element.val($option.text());
-                this.$list.find('li a').removeClass('selected');
-                $option.addClass('selected');
-                this.$dropdown.trigger('close');
+
+                var $option = $(e.currentTarget),
+                    _this = this;
+                var selected = false;
+
+                if (this.$select.is('select[multiple]') && e.ctrlKey) {
+                    $.each(this.$select.val(), function (index, value) {
+                        if ($option.data('value') == value) {
+                            var tempValue = _this.$select.val();
+                            tempValue.splice(index, 1);
+                            _this.$select.val(tempValue);
+                            selected = true;
+                        }
+                    });
+                    if (!selected) this.$select.val(($.isArray(this.$select.val()) ? this.$select.val() : []).concat($option.data('value')));
+                } else if (this.$select.is('select[multiple]')) {
+                    this.$select.val($option.data('value'));
+                    this.$list.find('li a').removeClass('selected');
+                } else {
+                    this.$select.val($option.data('value'));
+                    this.$element.val($option.text());
+                    this.$list.find('li a').removeClass('selected');
+                    this.$dropdown.trigger('close');
+                }
+                if (!selected) $option.addClass('selected');else $option.removeClass('selected');
                 this.$element.focus();
             }
 

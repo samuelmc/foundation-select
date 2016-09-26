@@ -12,6 +12,7 @@ $select-dropdown-height: rem-calc(300);
 @mixin select-dropdown {
   background-color: $select-background;
   border: $input-border;
+  box-shadow: $input-shadow;
   border-top: none;
   border-radius: 0 0 $select-radius $select-radius;
   display: block;
@@ -24,6 +25,7 @@ $select-dropdown-height: rem-calc(300);
   &.is-open {
     visibility: visible;
     border: $input-border-focus;
+    box-shadow: $input-shadow-focus;
     border-top: none;
   }
 
@@ -45,7 +47,7 @@ $select-dropdown-height: rem-calc(300);
           text-overflow: ellipsis;
           &:hover, &:focus, &.selected {
             color: $input-color;
-            background: rgba($secondary-color, .075);
+            background: rgba($secondary-color, .15);
           }
         }
       }
@@ -66,8 +68,44 @@ $select-dropdown-height: rem-calc(300);
     }
   }
 
-  .select-dropdown {
+  .select-dropdown, .multiple-select {
     @include select-dropdown;
+  }
+
+  .multiple-select {
+    visibility: visible;
+    border-radius: $select-radius;
+    border: $input-border;
+    position: relative;
+    z-index: 0;
+    &:focus {
+      border: $input-border-focus;
+      box-shadow: $input-shadow-focus;
+      outline: none;
+    }
+    & > div {
+      ul {
+        li {
+          a {
+            &:before {
+              content: "";
+              display: inline-block;
+              font-family: FontAwesome, sans-serif;
+              font-size: inherit;
+              text-rendering: auto; // optimizelegibility throws things off #1094
+              -webkit-font-smoothing: antialiased;
+              -moz-osx-font-smoothing: grayscale;
+              width: 1.5em;
+              text-align: center;
+              vertical-align: baseline;
+            }
+            &.selected:before {
+              content: "\f00c";
+            }
+          }
+        }
+      }
+    }
   }
 
   & > i.select-triangle {
