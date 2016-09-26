@@ -259,7 +259,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                 var $option = $(e.currentTarget),
                     _this = this;
-                var selected = false;
+                var unselect = false;
 
                 if (this.$select.is('select[multiple]') && e.ctrlKey) {
                     $.each(this.$select.val(), function (index, value) {
@@ -267,10 +267,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                             var tempValue = _this.$select.val();
                             tempValue.splice(index, 1);
                             _this.$select.val(tempValue);
-                            selected = true;
+                            unselect = true;
                         }
                     });
-                    if (!selected) this.$select.val(($.isArray(this.$select.val()) ? this.$select.val() : []).concat($option.data('value')));
+                    if (!unselect) this.$select.val(($.isArray(this.$select.val()) ? this.$select.val() : []).concat($option.data('value')));
                 } else if (this.$select.is('select[multiple]')) {
                     this.$select.val($option.data('value'));
                     this.$list.find('li a').removeClass('selected');
@@ -280,7 +280,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     this.$list.find('li a').removeClass('selected');
                     this.$dropdown.trigger('close');
                 }
-                if (!selected) $option.addClass('selected');else $option.removeClass('selected');
+                if (!unselect) $option.addClass('selected');else $option.removeClass('selected');
                 this.$element.focus();
             }
 

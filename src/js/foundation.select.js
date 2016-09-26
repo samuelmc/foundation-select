@@ -240,7 +240,7 @@
 
             const $option = $(e.currentTarget),
                   _this = this;
-            let selected = false;
+            let unselect = false;
 
             if (this.$select.is('select[multiple]') && e.ctrlKey) {
                 $.each(this.$select.val(), function (index, value) {
@@ -248,10 +248,10 @@
                         let tempValue = _this.$select.val();
                         tempValue.splice(index, 1);
                         _this.$select.val(tempValue);
-                        selected = true;
+                        unselect = true;
                     }
                 });
-                if (!selected) this.$select.val(($.isArray(this.$select.val()) ? this.$select.val():[]).concat($option.data('value')));
+                if (!unselect) this.$select.val(($.isArray(this.$select.val()) ? this.$select.val():[]).concat($option.data('value')));
             }
             else if (this.$select.is('select[multiple]')) {
                 this.$select.val($option.data('value'));
@@ -263,7 +263,7 @@
                 this.$list.find('li a').removeClass('selected');
                 this.$dropdown.trigger('close');
             }
-            if (!selected) $option.addClass('selected');
+            if (!unselect) $option.addClass('selected');
             else $option.removeClass('selected');
             this.$element.focus();
         }
