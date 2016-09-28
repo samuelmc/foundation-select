@@ -48,6 +48,7 @@
          * @private
          */
         _initMultiple() {
+            const _this = this;
             let $id = Foundation.GetYoDigits(6, 'select'),
                 $label = $(`label[for="${this.$select.attr('id')}"]`),
                 $wrapper = $('<div class="select-wrapper">'),
@@ -66,7 +67,7 @@
             $scroll.append(this.$list);
 
             this.$options = {};
-            this.$autoSelect = false;
+            this.$autoSelect = [];
             this.$select.find('option').each(this._setOption.bind(this));
 
             this.$element.attr('placeholder', this.options.placeholder);
@@ -75,12 +76,15 @@
 
             this._eventsMultiple();
 
-            if (this.$autoSelect !== false) {
-                this.$options[this.$autoSelect].find('a').trigger('click');
+            if (this.$autoSelect.length) {
+                $.each(this.$autoSelect, (index, value) => {
+                    _this.$options[value].find('a').trigger('click');
+                });
             }
         }
 
         _init() {
+            const _this = this;
             let $id = Foundation.GetYoDigits(6, 'select'),
                 $ddId = Foundation.GetYoDigits(6, 'select-dropdown'),
                 $label = $(`label[for="${this.$select.attr('id')}"]`),
@@ -114,7 +118,7 @@
             $scroll.append(this.$list);
 
             this.$options = {};
-            this.$autoSelect = false;
+            this.$autoSelect = [];
             this.$select.find('option').each(this._setOption.bind(this));
 
             this.$element.attr('placeholder', this.options.placeholder);
@@ -123,8 +127,10 @@
 
             this._events();
 
-            if (this.$autoSelect !== false) {
-                this.$options[this.$autoSelect].find('a').trigger('click');
+            if (this.$autoSelect.length) {
+                $.each(this.$autoSelect, (index, value) => {
+                    _this.$options[value].find('a').trigger('click');
+                });
             }
         }
 
@@ -134,7 +140,9 @@
                 this.options.placeholder = this.options.placeholder == '' ? text : this.options.placeholder;
                 return;
             }
-            if (value == this.options.value || $(option).is(':selected')) this.$autoSelect = value;
+            if ($(option).is(':selected')) {
+                this.$autoSelect[this.$autoSelect.length] = value;
+            }
             this.$options[value] = $(`<li><a data-value="${value}">${text}</a></li>`).appendTo(this.$list);
         }
 
@@ -244,15 +252,17 @@
                   _this = this;
             let unselect = false;
 
-            if (this.$select.is('select[multiple]') && e.ctrlKey) {
-                $.each(this.$select.val(), function (index, value) {
-                    if ($option.data('value') == value) {
-                        let tempValue = _this.$select.val();
-                        tempValue.splice(index, 1);
-                        _this.$select.val(tempValue);
-                        unselect = true;
-                    }
-                });
+            if (this.$select.is('select[multiple]') && (e.ctrlKey || e.isTrigger)) {
+                if (e.ctrlKey) {
+                    $.each(this.$select.val(), function (index, value) {
+                        if ($option.data('value') == value) {
+                            let tempValue = _this.$select.val();
+                            tempValue.splice(index, 1);
+                            _this.$select.val(tempValue);
+                            unselect = true;
+                        }
+                    });
+                }
                 if (!unselect) this.$select.val(($.isArray(this.$select.val()) ? this.$select.val():[]).concat($option.data('value')));
             }
             else if (this.$select.is('select[multiple]')) {

@@ -57,6 +57,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         _createClass(Select, [{
             key: '_initMultiple',
             value: function _initMultiple() {
+                var _this = this;
                 var $id = Foundation.GetYoDigits(6, 'select'),
                     $label = $('label[for="' + this.$select.attr('id') + '"]'),
                     $wrapper = $('<div class="select-wrapper">'),
@@ -75,7 +76,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 $scroll.append(this.$list);
 
                 this.$options = {};
-                this.$autoSelect = false;
+                this.$autoSelect = [];
                 this.$select.find('option').each(this._setOption.bind(this));
 
                 this.$element.attr('placeholder', this.options.placeholder);
@@ -84,13 +85,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                 this._eventsMultiple();
 
-                if (this.$autoSelect !== false) {
-                    this.$options[this.$autoSelect].find('a').trigger('click');
+                if (this.$autoSelect.length) {
+                    $.each(this.$autoSelect, function (index, value) {
+                        _this.$options[value].find('a').trigger('click');
+                    });
                 }
             }
         }, {
             key: '_init',
             value: function _init() {
+                var _this = this;
                 var $id = Foundation.GetYoDigits(6, 'select'),
                     $ddId = Foundation.GetYoDigits(6, 'select-dropdown'),
                     $label = $('label[for="' + this.$select.attr('id') + '"]'),
@@ -124,7 +128,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 $scroll.append(this.$list);
 
                 this.$options = {};
-                this.$autoSelect = false;
+                this.$autoSelect = [];
                 this.$select.find('option').each(this._setOption.bind(this));
 
                 this.$element.attr('placeholder', this.options.placeholder);
@@ -133,8 +137,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                 this._events();
 
-                if (this.$autoSelect !== false) {
-                    this.$options[this.$autoSelect].find('a').trigger('click');
+                if (this.$autoSelect.length) {
+                    $.each(this.$autoSelect, function (index, value) {
+                        _this.$options[value].find('a').trigger('click');
+                    });
                 }
             }
         }, {
@@ -146,7 +152,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     this.options.placeholder = this.options.placeholder == '' ? text : this.options.placeholder;
                     return;
                 }
-                if (value == this.options.value || $(option).is(':selected')) this.$autoSelect = value;
+                if ($(option).is(':selected')) {
+                    this.$autoSelect[this.$autoSelect.length] = value;
+                }
                 this.$options[value] = $('<li><a data-value="' + value + '">' + text + '</a></li>').appendTo(this.$list);
             }
         }, {
@@ -262,15 +270,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     _this = this;
                 var unselect = false;
 
-                if (this.$select.is('select[multiple]') && e.ctrlKey) {
-                    $.each(this.$select.val(), function (index, value) {
-                        if ($option.data('value') == value) {
-                            var tempValue = _this.$select.val();
-                            tempValue.splice(index, 1);
-                            _this.$select.val(tempValue);
-                            unselect = true;
-                        }
-                    });
+                if (this.$select.is('select[multiple]') && (e.ctrlKey || e.isTrigger)) {
+                    if (e.ctrlKey) {
+                        $.each(this.$select.val(), function (index, value) {
+                            if ($option.data('value') == value) {
+                                var tempValue = _this.$select.val();
+                                tempValue.splice(index, 1);
+                                _this.$select.val(tempValue);
+                                unselect = true;
+                            }
+                        });
+                    }
                     if (!unselect) this.$select.val(($.isArray(this.$select.val()) ? this.$select.val() : []).concat($option.data('value')));
                 } else if (this.$select.is('select[multiple]')) {
                     this.$select.val($option.data('value'));
