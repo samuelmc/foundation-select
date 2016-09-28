@@ -66,7 +66,7 @@ Just add a data-select attribute to your select tag.
 </select>
 ```
 
-Run foundation and it will automaticaly initialize all the datepickers
+Run foundation and it will automaticaly initialize all the selects
 ```js
 $(document).foundation();
 ```
