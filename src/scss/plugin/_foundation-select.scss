@@ -5,16 +5,19 @@
  */
 
 $select-background: $input-background !default;
-$select-border: $input-border !default;
 $select-color: $input-color !default;
+$select-border: $input-border !default;
+$select-shadow: $input-shadow !default;
+$select-border-focus: $input-border-focus !default;
+$select-shadow-focus: $input-shadow-focus !default;
 $select-dropdown-height: rem-calc(300) !default;
 $select-multiple-size-default: 5 !default;
 $select-multiple-size-max: 12 !default;
 
 @mixin select-dropdown {
   background-color: $select-background;
-  border: $input-border;
-  box-shadow: $input-shadow;
+  border: $select-border;
+  box-shadow: $select-shadow;
   border-top: none;
   border-radius: 0 0 $select-radius $select-radius;
   display: block;
@@ -26,8 +29,8 @@ $select-multiple-size-max: 12 !default;
 
   &.is-open {
     visibility: visible;
-    border: $input-border-focus;
-    box-shadow: $input-shadow-focus;
+    border: $select-border-focus;
+    box-shadow: $select-shadow-focus;
     border-top: none;
   }
 
