@@ -292,6 +292,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     this.$dropdown.trigger('close');
                 }
                 if (!unselect) $option.addClass('selected');else $option.removeClass('selected');
+                this.$element.trigger('selected.zf.select');
+                this.$select.trigger('change');
                 this.$element.focus();
             }
 
