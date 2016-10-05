@@ -9,6 +9,8 @@ $select-border: $input-border !default;
 $select-shadow: $input-shadow !default;
 $select-border-focus: $input-border-focus !default;
 $select-shadow-focus: $input-shadow-focus !default;
+$select-option-hover-color: $select-color !default;
+$select-option-selected-color: $select-option-hover-color !default;
 $select-option-hover-background: rgba($secondary-color, .15) !default;
 $select-option-selected-background: $select-option-hover-background !default;
 $select-dropdown-height: rem-calc(300) !default;
@@ -44,7 +46,7 @@ $select-multiple-size-max: 12 !default;
       @include menu-direction(vertical);
       li {
         a {
-          color: darken($input-color, 16.5%);
+          color: $select-color;
           padding: $form-spacing / 2;
           font-size: $input-font-size;
           line-height: $global-lineheight;
@@ -52,11 +54,11 @@ $select-multiple-size-max: 12 !default;
           overflow: hidden;
           text-overflow: ellipsis;
           &:hover, &:focus{
-            color: $input-color;
+            color: $select-option-hover-color;
             background: $select-option-hover-background;
           }
           &.selected {
-            color: $input-color;
+            color: $select-option-selected-color;
             background: $select-option-selected-background;
           }
         }

@@ -89,7 +89,7 @@
           .select-wrapper .select-container .select-dropdown > div ul > li, .select-wrapper .select-container .multiple-select > div ul > li {
             display: block; }
           .select-wrapper .select-container .select-dropdown > div ul li a, .select-wrapper .select-container .multiple-select > div ul li a {
-            color: black;
+            color: #0a0a0a;
             padding: 0.5rem;
             font-size: 1rem;
             line-height: 1.5;
