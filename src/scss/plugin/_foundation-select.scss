@@ -1,6 +1,5 @@
 /**
  * Foundation select by Samuel Moncarey
- * Version 0.0.0
  * Licensed under MIT Open Source
  */
 
@@ -10,6 +9,8 @@ $select-border: $input-border !default;
 $select-shadow: $input-shadow !default;
 $select-border-focus: $input-border-focus !default;
 $select-shadow-focus: $input-shadow-focus !default;
+$select-option-hover-background: rgba($secondary-color, .15) !default;
+$select-option-selected-background: $select-option-hover-background !default;
 $select-dropdown-height: rem-calc(300) !default;
 $select-multiple-size-default: 5 !default;
 $select-multiple-size-max: 12 !default;
@@ -50,9 +51,13 @@ $select-multiple-size-max: 12 !default;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          &:hover, &:focus, &.selected {
+          &:hover, &:focus{
             color: $input-color;
-            background: rgba($secondary-color, .15);
+            background: $select-option-hover-background;
+          }
+          &.selected {
+            color: $input-color;
+            background: $select-option-selected-background;
           }
         }
       }

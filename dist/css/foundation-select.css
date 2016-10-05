@@ -6,7 +6,6 @@
  */
 /**
  * Foundation select by Samuel Moncarey
- * Version 0.0.0
  * Licensed under MIT Open Source
  */
 .select-wrapper {
@@ -97,7 +96,10 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis; }
-            .select-wrapper .select-container .select-dropdown > div ul li a:hover, .select-wrapper .select-container .select-dropdown > div ul li a:focus, .select-wrapper .select-container .select-dropdown > div ul li a.selected, .select-wrapper .select-container .multiple-select > div ul li a:hover, .select-wrapper .select-container .multiple-select > div ul li a:focus, .select-wrapper .select-container .multiple-select > div ul li a.selected {
+            .select-wrapper .select-container .select-dropdown > div ul li a:hover, .select-wrapper .select-container .select-dropdown > div ul li a:focus, .select-wrapper .select-container .multiple-select > div ul li a:hover, .select-wrapper .select-container .multiple-select > div ul li a:focus {
+              color: #0a0a0a;
+              background: rgba(119, 119, 119, 0.15); }
+            .select-wrapper .select-container .select-dropdown > div ul li a.selected, .select-wrapper .select-container .multiple-select > div ul li a.selected {
               color: #0a0a0a;
               background: rgba(119, 119, 119, 0.15); }
     .select-wrapper .select-container .multiple-select {
