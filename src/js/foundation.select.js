@@ -1,6 +1,5 @@
 /**
  * Foundation select by Samuel Moncarey
- * Version 0.0.0
  * Licensed under MIT Open Source
  */
 
@@ -164,6 +163,7 @@
             this.$element.val($option.text());
             this.$list.find('li a').removeClass('selected');
             $option.addClass('selected');
+            $option.scrollIntoView();
         }
 
         _selectArrowUp(e) {
@@ -181,6 +181,7 @@
             this.$element.val($option.text());
             this.$list.find('li a').removeClass('selected');
             $option.addClass('selected');
+            $option.scrollIntoView();
         }
 
         /**

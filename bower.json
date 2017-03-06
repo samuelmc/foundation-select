@@ -21,6 +21,9 @@
   "dependencies": {
     "foundation-sites": "^6.2.3",
     "font-awesome": "^4.6.3",
-    "foundation-perfect-scrollbar": "^1.1.0"
+    "foundation-perfect-scrollbar": "^1.2.0"
+  },
+  "devDependencies": {
+    "foundation-perfect-scrollbar": "1.2.x-dev"
   }
 }

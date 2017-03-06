@@ -6,7 +6,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 /**
  * Foundation select by Samuel Moncarey
- * Version 0.0.0
  * Licensed under MIT Open Source
  */
 
