@@ -1,6 +1,5 @@
 /**
  * Foundation select by Samuel Moncarey
- * Version 0.0.0
  * Licensed under MIT Open Source
  */
 
@@ -164,6 +163,7 @@
             this.$element.val($option.text());
             this.$list.find('li a').removeClass('selected');
             $option.addClass('selected');
+            $option[0].scrollIntoView(false);
         }
 
         _selectArrowUp(e) {
@@ -181,6 +181,7 @@
             this.$element.val($option.text());
             this.$list.find('li a').removeClass('selected');
             $option.addClass('selected');
+            $option[0].scrollIntoView();
         }
 
         /**
@@ -215,6 +216,11 @@
         _events() {
             const _this = this;
             this.$element
+                .off('mousewheel.zf.select')
+                .on('mousewheel.zf.select', (e) => {
+                    if (e.originalEvent.deltaY > 0) _this._selectArrowDown(e);
+                    else _this._selectArrowUp(e);
+                })
                 .add(this.$dropdown)
                 .off('keybord.zf.dropdown')
                 .on('keydown.zf.select', (e) => {
