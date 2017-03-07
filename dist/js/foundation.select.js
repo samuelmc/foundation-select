@@ -174,6 +174,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 this.$element.val($option.text());
                 this.$list.find('li a').removeClass('selected');
                 $option.addClass('selected');
+                $option[0].scrollIntoView(false);
             }
         }, {
             key: '_selectArrowUp',
@@ -191,6 +192,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 this.$element.val($option.text());
                 this.$list.find('li a').removeClass('selected');
                 $option.addClass('selected');
+                $option[0].scrollIntoView();
             }
 
             /**
@@ -230,7 +232,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             key: '_events',
             value: function _events() {
                 var _this = this;
-                this.$element.add(this.$dropdown).off('keybord.zf.dropdown').on('keydown.zf.select', function (e) {
+                this.$element.off('mousewheel.zf.select').on('mousewheel.zf.select', function (e) {
+                    if (e.originalEvent.deltaY > 0) _this._selectArrowDown(e);else _this._selectArrowUp(e);
+                }).add(this.$dropdown).off('keybord.zf.dropdown').on('keydown.zf.select', function (e) {
                     Foundation.Keyboard.handleKey(e, 'Select', {
                         open: function open() {
                             if ($target.is(_this.$element)) {
