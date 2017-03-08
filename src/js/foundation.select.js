@@ -163,7 +163,10 @@
             this.$element.val($option.text());
             this.$list.find('li a').removeClass('selected');
             $option.addClass('selected');
-            $option[0].scrollIntoView(false);
+
+            if (this.$dropdown.hasClass('is-open')) {
+                $option[0].scrollIntoView(false);
+            }
         }
 
         _selectArrowUp(e) {
@@ -181,7 +184,10 @@
             this.$element.val($option.text());
             this.$list.find('li a').removeClass('selected');
             $option.addClass('selected');
-            $option[0].scrollIntoView();
+
+            if (this.$dropdown.hasClass('is-open')) {
+                $option[0].scrollIntoView();
+            }
         }
 
         /**
