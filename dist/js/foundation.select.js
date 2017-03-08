@@ -233,6 +233,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             value: function _events() {
                 var _this = this;
                 this.$element.off('mousewheel.zf.select').on('mousewheel.zf.select', function (e) {
+                    e.preventDefault();
                     if (e.originalEvent.deltaY > 0) _this._selectArrowDown(e);else _this._selectArrowUp(e);
                 }).add(this.$dropdown).off('keybord.zf.dropdown').on('keydown.zf.select', function (e) {
                     Foundation.Keyboard.handleKey(e, 'Select', {
