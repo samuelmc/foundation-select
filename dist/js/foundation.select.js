@@ -174,7 +174,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 this.$element.val($option.text());
                 this.$list.find('li a').removeClass('selected');
                 $option.addClass('selected');
-                $option[0].scrollIntoView(false);
+
+                if (this.$dropdown.hasClass('is-open')) {
+                    $option[0].scrollIntoView(false);
+                }
             }
         }, {
             key: '_selectArrowUp',
@@ -192,7 +195,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 this.$element.val($option.text());
                 this.$list.find('li a').removeClass('selected');
                 $option.addClass('selected');
-                $option[0].scrollIntoView();
+
+                if (this.$dropdown.hasClass('is-open')) {
+                    $option[0].scrollIntoView();
+                }
             }
 
             /**
