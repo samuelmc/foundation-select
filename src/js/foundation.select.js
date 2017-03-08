@@ -218,6 +218,7 @@
             this.$element
                 .off('mousewheel.zf.select')
                 .on('mousewheel.zf.select', (e) => {
+                    e.preventDefault();
                     if (e.originalEvent.deltaY > 0) _this._selectArrowDown(e);
                     else _this._selectArrowUp(e);
                 })
