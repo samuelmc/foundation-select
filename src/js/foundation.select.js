@@ -88,8 +88,7 @@
                 $ddId = Foundation.GetYoDigits(6, 'select-dropdown'),
                 $label = $(`label[for="${this.$select.attr('id')}"]`),
                 $wrapper = $('<div class="select-wrapper">'),
-                $container = $('<div class="select-container">'),
-                $scroll = $('<div data-perfect-scrollbar>');
+                $container = $('<div class="select-container">');
 
             this.$select.wrap($wrapper);
             this.$select.after($container);
@@ -101,6 +100,7 @@
             this.$selectTriangle = $(`<i class="select-triangle fa ${this.options.iconClass}" data-toggle="${$ddId}">`);
             $container.append(this.$selectTriangle);
 
+            this.$scroll = $('<div data-perfect-scrollbar>');
             this.$dropdown = $('<div>');
             this.$dropdown.attr({
                 'id': $ddId,
@@ -110,11 +110,11 @@
                 'data-h-offset': 0,
                 'data-close-on-click': true
             });
-            this.$dropdown.append($scroll);
+            this.$dropdown.append(this.$scroll);
             $container.append(this.$dropdown);
 
             this.$list = $('<ul>');
-            $scroll.append(this.$list);
+            this.$scroll.append(this.$list);
 
             this.$options = {};
             this.$autoSelect = [];
@@ -165,7 +165,7 @@
             $option.addClass('selected');
 
             if (this.$dropdown.hasClass('is-open')) {
-                $option[0].scrollIntoView(false);
+                this.$scroll.foundation('scrollToElement', $option);
             }
         }
 
@@ -186,7 +186,7 @@
             $option.addClass('selected');
 
             if (this.$dropdown.hasClass('is-open')) {
-                $option[0].scrollIntoView();
+                this.$scroll.foundation('scrollToElement', $option);
             }
         }
 
@@ -224,7 +224,6 @@
             this.$element
                 .off('mousewheel.zf.select')
                 .on('mousewheel.zf.select', (e) => {
-                    e.preventDefault();
                     if (e.originalEvent.deltaY > 0) _this._selectArrowDown(e);
                     else _this._selectArrowUp(e);
                 })
