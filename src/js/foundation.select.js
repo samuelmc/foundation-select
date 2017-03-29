@@ -150,9 +150,9 @@
         _addGroup($group, $parent) {
             let _this = this,
                 label = $group.attr('label'),
-                $groupItem = $('<li>'),
+                $groupItem = $('<li class="group-item">'),
                 $groupLabel = $(`<a class="group-label">${label}</a>`),
-                $groupOptions = $('<ul>');
+                $groupOptions = $('<ul class="group-list">');
 
             $groupItem.append($groupLabel);
             $groupItem.append($groupOptions);
@@ -179,17 +179,25 @@
 
         _selectArrowDown(e) {
             e.preventDefault();
-            const $selected = $(this.$list.find('a.selected')[this.$list.find('a.selected').length -1]);
+            const $selected = $(this.$list.find('a.selected')[0]);
             let $option;
 
             if ($selected.parent().is(':last-child')) {
                 $option = $selected;
+
+                if ($selected.parent().parent().is('.group-list') && !$selected.parents('.group-item').is(':last-child')) {
+                    let $nextItem = $selected.parents('.group-item').next();
+                    if ($nextItem.is('li:not(.group-item)')) $option = $nextItem.find('a');
+                    if ($nextItem.is('.group-item')) $option = $nextItem.find('a + ul li:first-child a');
+                }
             }
             else if ($selected.length > 0) {
-                $option = $selected.parent().next().find('a');
+                let $nextItem = $selected.parent().next();
+                if ($nextItem.is('li:not(.group-item)')) $option = $nextItem.find('a');
+                if ($nextItem.is('.group-item')) $option = $nextItem.find('a + ul li:first-child a');
             }
             else {
-                $option = this.$list.find('li:first-child a');
+                $option = $(this.$list.find('li:first-child a')[0]);
             }
             this.$select.val($option.data('value'));
             this.$element.val($option.text());
@@ -205,12 +213,22 @@
             e.preventDefault();
             const $selected = $(this.$list.find('a.selected')[this.$list.find('a.selected').length -1]);
             let $option;
-            if ($selected.parent().is(':first-child')) return;
+            if ($selected.parent().is(':first-child')) {
+                $option = $selected;
+
+                if ($selected.parent().parent().is('.group-list') && !$selected.parents('.group-item').is(':first-child')) {
+                    let $nextItem = $selected.parents('.group-item').prev();
+                    if ($nextItem.is('li:not(.group-item)')) $option = $nextItem.find('a');
+                    if ($nextItem.is('.group-item')) $option = $nextItem.find('a + ul li:last-child a');
+                }
+            }
             if ($selected.length > 0) {
-                $option = $selected.parent().prev().find('a');
+                let $nextItem = $selected.parent().prev();
+                if ($nextItem.is('li:not(.group-item)')) $option = $nextItem.find('a');
+                if ($nextItem.is('.group-item')) $option = $nextItem.find('a + ul li:last-child a');
             }
             else {
-                $option = this.$list.find('li:last-child a');
+                $option = $(this.$list.find('li:last-child a')[this.$list.find('li:last-child a').length -1]);
             }
             this.$select.val($option.data('value'));
             this.$element.val($option.text());

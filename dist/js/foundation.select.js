@@ -161,9 +161,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             value: function _addGroup($group, $parent) {
                 var _this = this,
                     label = $group.attr('label'),
-                    $groupItem = $('<li>'),
+                    $groupItem = $('<li class="group-item">'),
                     $groupLabel = $('<a class="group-label">' + label + '</a>'),
-                    $groupOptions = $('<ul>');
+                    $groupOptions = $('<ul class="group-list">');
 
                 $groupItem.append($groupLabel);
                 $groupItem.append($groupOptions);
@@ -192,15 +192,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             key: '_selectArrowDown',
             value: function _selectArrowDown(e) {
                 e.preventDefault();
-                var $selected = $(this.$list.find('a.selected')[this.$list.find('a.selected').length - 1]);
+                var $selected = $(this.$list.find('a.selected')[0]);
                 var $option = void 0;
 
                 if ($selected.parent().is(':last-child')) {
                     $option = $selected;
+
+                    if ($selected.parent().parent().is('.group-list') && !$selected.parents('.group-item').is(':last-child')) {
+                        var $nextItem = $selected.parents('.group-item').next();
+                        if ($nextItem.is('li:not(.group-item)')) $option = $nextItem.find('a');
+                        if ($nextItem.is('.group-item')) $option = $nextItem.find('a + ul li:first-child a');
+                    }
                 } else if ($selected.length > 0) {
-                    $option = $selected.parent().next().find('a');
+                    var _$nextItem = $selected.parent().next();
+                    if (_$nextItem.is('li:not(.group-item)')) $option = _$nextItem.find('a');
+                    if (_$nextItem.is('.group-item')) $option = _$nextItem.find('a + ul li:first-child a');
                 } else {
-                    $option = this.$list.find('li:first-child a');
+                    $option = $(this.$list.find('li:first-child a')[0]);
                 }
                 this.$select.val($option.data('value'));
                 this.$element.val($option.text());
@@ -217,11 +225,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 e.preventDefault();
                 var $selected = $(this.$list.find('a.selected')[this.$list.find('a.selected').length - 1]);
                 var $option = void 0;
-                if ($selected.parent().is(':first-child')) return;
+                if ($selected.parent().is(':first-child')) {
+                    $option = $selected;
+
+                    if ($selected.parent().parent().is('.group-list') && !$selected.parents('.group-item').is(':first-child')) {
+                        var $nextItem = $selected.parents('.group-item').prev();
+                        if ($nextItem.is('li:not(.group-item)')) $option = $nextItem.find('a');
+                        if ($nextItem.is('.group-item')) $option = $nextItem.find('a + ul li:last-child a');
+                    }
+                }
                 if ($selected.length > 0) {
-                    $option = $selected.parent().prev().find('a');
+                    var _$nextItem2 = $selected.parent().prev();
+                    if (_$nextItem2.is('li:not(.group-item)')) $option = _$nextItem2.find('a');
+                    if (_$nextItem2.is('.group-item')) $option = _$nextItem2.find('a + ul li:last-child a');
                 } else {
-                    $option = this.$list.find('li:last-child a');
+                    $option = $(this.$list.find('li:last-child a')[this.$list.find('li:last-child a').length - 1]);
                 }
                 this.$select.val($option.data('value'));
                 this.$element.val($option.text());
