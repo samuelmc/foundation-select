@@ -67,7 +67,14 @@
 
             this.$options = {};
             this.$autoSelect = [];
-            this.$select.find('option').each(this._setOption.bind(this));
+            this.$select.find('> *').each((index, option) => {
+                if ($(option).is('optgroup')) {
+                    _this._addGroup($(option), _this.$list);
+                }
+                if ($(option).is('option')) {
+                    _this._addOption($(option), _this.$list);
+                }
+            });
 
             this.$element.attr('placeholder', this.options.placeholder);
 
@@ -118,7 +125,14 @@
 
             this.$options = {};
             this.$autoSelect = [];
-            this.$select.find('option').each(this._setOption.bind(this));
+            this.$select.find('> *').each((index, option) => {
+                if ($(option).is('optgroup')) {
+                    _this._addGroup($(option), _this.$list);
+                }
+                if ($(option).is('option')) {
+                    _this._addOption($(option), _this.$list);
+                }
+            });
 
             this.$element.attr('placeholder', this.options.placeholder);
 
@@ -133,16 +147,34 @@
             }
         }
 
-        _setOption(index, option) {
-            let value = $(option).val(), text = $(option).text();
+        _addGroup($group, $parent) {
+            let _this = this,
+                label = $group.attr('label'),
+                $groupItem = $('<li>'),
+                $groupLabel = $(`<a class="group-label">${label}</a>`),
+                $groupOptions = $('<ul>');
+
+            $groupItem.append($groupLabel);
+            $groupItem.append($groupOptions);
+            $parent.append($groupItem);
+
+            $group.find('> *').each((index, option) => {
+                _this._addOption($(option), $groupOptions);
+            });
+        }
+
+        _addOption($option, $parent) {
+            let value = $option.val(),
+                text = $option.text();
+
             if (value == '') {
                 this.options.placeholder = this.options.placeholder == '' ? text : this.options.placeholder;
                 return;
             }
-            if ($(option).is(':selected')) {
+            if ($option.is(':selected')) {
                 this.$autoSelect[this.$autoSelect.length] = value;
             }
-            this.$options[value] = $(`<li><a data-value="${value}">${text}</a></li>`).appendTo(this.$list);
+            this.$options[value] = $(`<li><a data-value="${value}">${text}</a></li>`).appendTo($parent);
         }
 
         _selectArrowDown(e) {

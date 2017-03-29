@@ -13,9 +13,18 @@ $select-option-hover-color: $select-color !default;
 $select-option-selected-color: $select-option-hover-color !default;
 $select-option-hover-background: rgba($secondary-color, .15) !default;
 $select-option-selected-background: $select-option-hover-background !default;
+$select-optgroup-indent: 1.25em !default;
 $select-dropdown-height: rem-calc(300) !default;
 $select-multiple-size-default: 5 !default;
 $select-multiple-size-max: 12 !default;
+
+@function select-size-calc($size) {
+  @return $size * ($form-spacing + ($input-font-size * $global-lineheight));
+}
+
+@mixin select-size-calc($size) {
+  max-height: select-size-calc($size);
+}
 
 @mixin select-dropdown {
   background-color: $select-background;
@@ -53,22 +62,31 @@ $select-multiple-size-max: 12 !default;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          &:hover, &:focus{
-            color: $select-option-hover-color;
-            background: $select-option-hover-background;
-          }
           &.selected {
             color: $select-option-selected-color;
             background: $select-option-selected-background;
+          }
+          &:not(.group-label) {
+            &:hover, &:focus{
+              color: $select-option-hover-color;
+              background: $select-option-hover-background;
+            }
+          }
+
+          &.group-label {
+            font-weight: bold;
+            font-size: 1.1em;
+
+            & + ul {
+              li a {
+                padding-left: $select-optgroup-indent;
+              }
+            }
           }
         }
       }
     }
   }
-}
-
-@mixin select-size-calc($size) {
-  max-height: $size * ($form-spacing + ($input-font-size * $global-lineheight));
 }
 
 @mixin select-container {
@@ -145,6 +163,9 @@ $select-multiple-size-max: 12 !default;
     position: relative;
     select[data-select] {
       display: none;
+      &[size] + .select-container .multiple-select > div {
+        @include select-size-calc($select-multiple-size-max);
+      }
       @for $size from 1 through $select-multiple-size-max {
         &[size="#{$size}"] + .select-container .multiple-select > div {
           @include select-size-calc($size);

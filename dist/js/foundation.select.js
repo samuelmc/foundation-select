@@ -76,7 +76,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                 this.$options = {};
                 this.$autoSelect = [];
-                this.$select.find('option').each(this._setOption.bind(this));
+                this.$select.find('> *').each(function (index, option) {
+                    if ($(option).is('optgroup')) {
+                        _this._addGroup($(option), _this.$list);
+                    }
+                    if ($(option).is('option')) {
+                        _this._addOption($(option), _this.$list);
+                    }
+                });
 
                 this.$element.attr('placeholder', this.options.placeholder);
 
@@ -128,7 +135,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                 this.$options = {};
                 this.$autoSelect = [];
-                this.$select.find('option').each(this._setOption.bind(this));
+                this.$select.find('> *').each(function (index, option) {
+                    if ($(option).is('optgroup')) {
+                        _this._addGroup($(option), _this.$list);
+                    }
+                    if ($(option).is('option')) {
+                        _this._addOption($(option), _this.$list);
+                    }
+                });
 
                 this.$element.attr('placeholder', this.options.placeholder);
 
@@ -143,18 +157,36 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 }
             }
         }, {
-            key: '_setOption',
-            value: function _setOption(index, option) {
-                var value = $(option).val(),
-                    text = $(option).text();
+            key: '_addGroup',
+            value: function _addGroup($group, $parent) {
+                var _this = this,
+                    label = $group.attr('label'),
+                    $groupItem = $('<li>'),
+                    $groupLabel = $('<a class="group-label">' + label + '</a>'),
+                    $groupOptions = $('<ul>');
+
+                $groupItem.append($groupLabel);
+                $groupItem.append($groupOptions);
+                $parent.append($groupItem);
+
+                $group.find('> *').each(function (index, option) {
+                    _this._addOption($(option), $groupOptions);
+                });
+            }
+        }, {
+            key: '_addOption',
+            value: function _addOption($option, $parent) {
+                var value = $option.val(),
+                    text = $option.text();
+
                 if (value == '') {
                     this.options.placeholder = this.options.placeholder == '' ? text : this.options.placeholder;
                     return;
                 }
-                if ($(option).is(':selected')) {
+                if ($option.is(':selected')) {
                     this.$autoSelect[this.$autoSelect.length] = value;
                 }
-                this.$options[value] = $('<li><a data-value="' + value + '">' + text + '</a></li>').appendTo(this.$list);
+                this.$options[value] = $('<li><a data-value="' + value + '">' + text + '</a></li>').appendTo($parent);
             }
         }, {
             key: '_selectArrowDown',

@@ -12,6 +12,8 @@
   position: relative; }
   .select-wrapper select[data-select] {
     display: none; }
+    .select-wrapper select[data-select][size] + .select-container .multiple-select > div {
+      max-height: 30rem; }
     .select-wrapper select[data-select][size="1"] + .select-container .multiple-select > div {
       max-height: 2.5rem; }
     .select-wrapper select[data-select][size="2"] + .select-container .multiple-select > div {
@@ -98,12 +100,17 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis; }
-            .select-wrapper .select-container .select-dropdown > div ul li a:hover, .select-wrapper .select-container .select-dropdown > div ul li a:focus, .select-wrapper .select-container .multiple-select > div ul li a:hover, .select-wrapper .select-container .multiple-select > div ul li a:focus {
-              color: #0a0a0a;
-              background: rgba(118, 118, 118, 0.15); }
             .select-wrapper .select-container .select-dropdown > div ul li a.selected, .select-wrapper .select-container .multiple-select > div ul li a.selected {
               color: #0a0a0a;
               background: rgba(118, 118, 118, 0.15); }
+            .select-wrapper .select-container .select-dropdown > div ul li a:not(.group-label):hover, .select-wrapper .select-container .select-dropdown > div ul li a:not(.group-label):focus, .select-wrapper .select-container .multiple-select > div ul li a:not(.group-label):hover, .select-wrapper .select-container .multiple-select > div ul li a:not(.group-label):focus {
+              color: #0a0a0a;
+              background: rgba(118, 118, 118, 0.15); }
+            .select-wrapper .select-container .select-dropdown > div ul li a.group-label, .select-wrapper .select-container .multiple-select > div ul li a.group-label {
+              font-weight: bold;
+              font-size: 1.1em; }
+              .select-wrapper .select-container .select-dropdown > div ul li a.group-label + ul li a, .select-wrapper .select-container .multiple-select > div ul li a.group-label + ul li a {
+                padding-left: 1.25em; }
     .select-wrapper .select-container .multiple-select {
       visibility: visible;
       border-radius: 0;
