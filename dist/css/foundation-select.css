@@ -12,6 +12,8 @@
   position: relative; }
   .select-wrapper select[data-select] {
     display: none; }
+    .select-wrapper select[data-select][size] + .select-container .multiple-select > div {
+      max-height: 30rem; }
     .select-wrapper select[data-select][size="1"] + .select-container .multiple-select > div {
       max-height: 2.5rem; }
     .select-wrapper select[data-select][size="2"] + .select-container .multiple-select > div {

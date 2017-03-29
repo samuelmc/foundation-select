@@ -147,7 +147,7 @@
 
         _selectArrowDown(e) {
             e.preventDefault();
-            const $selected = $(this.$list.find('a.selected')[this.$list.find('a.selected').length -1]);
+            const $selected = $(this.$list.find('a.selected')[0]);
             let $option;
 
             if ($selected.parent().is(':last-child')) {

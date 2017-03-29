@@ -160,7 +160,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             key: '_selectArrowDown',
             value: function _selectArrowDown(e) {
                 e.preventDefault();
-                var $selected = $(this.$list.find('a.selected')[this.$list.find('a.selected').length - 1]);
+                var $selected = $(this.$list.find('a.selected')[0]);
                 var $option = void 0;
 
                 if ($selected.parent().is(':last-child')) {
