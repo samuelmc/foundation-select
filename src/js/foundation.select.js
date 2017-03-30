@@ -58,6 +58,12 @@
             this.$select.after($container);
 
             this.$element = $(`<div id="${$id}" class="multiple-select" tabindex="0">`);
+
+            if (this.options.multiDisplayList) {
+                this.$listDisplay = this._buildListDisplay($id);
+                this.$element.append(this.$listDisplay);
+            }
+
             this.$element.append($scroll);
             $container.append(this.$element);
             $label.attr('for', $id);
@@ -87,6 +93,15 @@
                     _this.$options[value].find('a').trigger('click');
                 });
             }
+        }
+
+        _buildListDisplay($id) {
+            let $display = $(`<div id="${$id}-display" class="list-display">`),
+                $list = $('<ul>');
+            // this.$displayInput = $('<input type="text">');
+            $display.append($list);
+            // $display.append(this.$displayInput);
+            return $display;
         }
 
         _init() {
@@ -316,9 +331,12 @@
                   _this = this;
             let unselect = false;
 
-            if (this.$select.is('select[multiple]') && (e.ctrlKey || e.isTrigger)) {
+            if (this.$select.is('select[multiple]')
+                && (((e.ctrlKey || e.isTrigger) && this.options.multiSelectMethod == 'default')
+                    || this.options.multiSelectMethod == 'mouse-only'))
+            {
                 if (e.ctrlKey) {
-                    $.each(this.$select.val(), function (index, value) {
+                    $.each(this.$select.val(), (index, value) => {
                         if ($option.data('value') == value) {
                             let tempValue = _this.$select.val();
                             tempValue.splice(index, 1);
@@ -327,11 +345,26 @@
                         }
                     });
                 }
-                if (!unselect) this.$select.val(($.isArray(this.$select.val()) ? this.$select.val():[]).concat($option.data('value')));
+                if (!unselect) {
+                    this.$select.val(($.isArray(this.$select.val()) ? this.$select.val():[]).concat($option.data('value')));
+                    let $list = this.$listDisplay.find('ul');
+                    let label = this.$list.find(`a[data-value="${$option.data('value')}"]`).text();
+                    $list.append($(`<li data-value="${$option.data('value')}">${label}</li>`));
+                }
+                else {
+                    let $list = this.$listDisplay.find('ul');
+                    $list.find(`li[data-value="${$option.data('value')}"]`).remove();
+                }
             }
             else if (this.$select.is('select[multiple]')) {
                 this.$select.val($option.data('value'));
                 this.$list.find('li a').removeClass('selected');
+                if (this.options.multiDisplayList) {
+                    let $list = this.$listDisplay.find('ul');
+                    let label = this.$list.find(`a[data-value="${$option.data('value')}"]`).text();
+                    $list.empty();
+                    $list.append($(`<li data-value="${$option.data('value')}">${label}</li>`));
+                }
             }
             else {
                 this.$select.val($option.data('value'));
@@ -344,6 +377,15 @@
             this.$element.trigger('selected.zf.select');
             this.$select.trigger('change');
             this.$element.focus();
+
+            /*if (this.$select.is('select[multiple]') && this.options.multiDisplayList) {
+                let $list = this.$listDisplay.find('ul'),
+                    displayDims = Foundation.Box.GetDimensions(this.$listDisplay),
+                    listDims = Foundation.Box.GetDimensions($list);
+                this.$displayInput.css({width: displayDims.width - listDims.width});
+                this.$displayInput.focus();
+            }*/
+
         }
 
         /**
@@ -363,6 +405,8 @@
                 placeholder: '',
                 value: '',
                 mousewheel: true,
+                multiSelectMethod: 'default', //default|mouse-only
+                multiDisplayList: true,
             };
         }
     }

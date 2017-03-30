@@ -12,31 +12,31 @@
   position: relative; }
   .select-wrapper select[data-select] {
     display: none; }
-    .select-wrapper select[data-select][size] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size] + .select-container .multiple-select .ps-container {
       max-height: 30rem; }
-    .select-wrapper select[data-select][size="1"] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size="1"] + .select-container .multiple-select .ps-container {
       max-height: 2.5rem; }
-    .select-wrapper select[data-select][size="2"] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size="2"] + .select-container .multiple-select .ps-container {
       max-height: 5rem; }
-    .select-wrapper select[data-select][size="3"] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size="3"] + .select-container .multiple-select .ps-container {
       max-height: 7.5rem; }
-    .select-wrapper select[data-select][size="4"] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size="4"] + .select-container .multiple-select .ps-container {
       max-height: 10rem; }
-    .select-wrapper select[data-select][size="5"] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size="5"] + .select-container .multiple-select .ps-container {
       max-height: 12.5rem; }
-    .select-wrapper select[data-select][size="6"] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size="6"] + .select-container .multiple-select .ps-container {
       max-height: 15rem; }
-    .select-wrapper select[data-select][size="7"] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size="7"] + .select-container .multiple-select .ps-container {
       max-height: 17.5rem; }
-    .select-wrapper select[data-select][size="8"] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size="8"] + .select-container .multiple-select .ps-container {
       max-height: 20rem; }
-    .select-wrapper select[data-select][size="9"] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size="9"] + .select-container .multiple-select .ps-container {
       max-height: 22.5rem; }
-    .select-wrapper select[data-select][size="10"] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size="10"] + .select-container .multiple-select .ps-container {
       max-height: 25rem; }
-    .select-wrapper select[data-select][size="11"] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size="11"] + .select-container .multiple-select .ps-container {
       max-height: 27.5rem; }
-    .select-wrapper select[data-select][size="12"] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size="12"] + .select-container .multiple-select .ps-container {
       max-height: 30rem; }
   .select-wrapper .select-container {
     position: relative; }
@@ -117,14 +117,27 @@
       border: 1px solid #cacaca;
       position: relative;
       z-index: 0; }
+      .select-wrapper .select-container .multiple-select .list-display {
+        border-bottom: 1px solid #cacaca; }
+        .select-wrapper .select-container .multiple-select .list-display ul {
+          display: inline-block;
+          padding: 0.25rem;
+          font-size: 1rem;
+          line-height: 1.5; }
+          .select-wrapper .select-container .multiple-select .list-display ul li {
+            display: inline-block;
+            margin: 0.25rem; }
       .select-wrapper .select-container .multiple-select:focus {
         border: 1px solid #8a8a8a;
-        -webkit-box-shadow: 0 0 5px #cacaca;
-                box-shadow: 0 0 5px #cacaca;
         outline: none; }
-      .select-wrapper .select-container .multiple-select > div {
+        .select-wrapper .select-container .multiple-select:focus .list-display {
+          border-bottom: 1px solid #8a8a8a; }
+        .select-wrapper .select-container .multiple-select:focus .ps-container {
+          -webkit-box-shadow: 0 0 5px #cacaca;
+                  box-shadow: 0 0 5px #cacaca; }
+      .select-wrapper .select-container .multiple-select .ps-container {
         max-height: 12.5rem; }
-        .select-wrapper .select-container .multiple-select > div ul li a:before {
+        .select-wrapper .select-container .multiple-select .ps-container ul li a:before {
           content: "";
           display: inline-block;
           font-family: FontAwesome, sans-serif;
@@ -135,7 +148,7 @@
           width: 1.5em;
           text-align: center;
           vertical-align: baseline; }
-        .select-wrapper .select-container .multiple-select > div ul li a.selected:before {
+        .select-wrapper .select-container .multiple-select .ps-container ul li a.selected:before {
           content: "\f00c"; }
     .select-wrapper .select-container > i.select-triangle {
       position: absolute;

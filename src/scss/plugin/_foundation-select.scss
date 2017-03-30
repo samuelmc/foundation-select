@@ -112,12 +112,35 @@ $select-multiple-size-max: 12 !default;
     border: $input-border;
     position: relative;
     z-index: 0;
+
+    .list-display {
+      border-bottom: $input-border;
+
+      ul {
+        display: inline-block;
+        padding: $form-spacing / 4;
+        font-size: $input-font-size;
+        line-height: $global-lineheight;
+        li {
+          display: inline-block;
+          margin: $form-spacing / 4;
+        }
+      }
+    }
     &:focus {
       border: $input-border-focus;
-      box-shadow: $input-shadow-focus;
       outline: none;
+
+      .list-display {
+        border-bottom: $input-border-focus;
+      }
+
+      .ps-container {
+        box-shadow: $input-shadow-focus;
+      }
     }
-    & > div {
+
+    .ps-container {
       @include select-size-calc($select-multiple-size-default);
 
       ul {
@@ -163,11 +186,11 @@ $select-multiple-size-max: 12 !default;
     position: relative;
     select[data-select] {
       display: none;
-      &[size] + .select-container .multiple-select > div {
+      &[size] + .select-container .multiple-select .ps-container {
         @include select-size-calc($select-multiple-size-max);
       }
       @for $size from 1 through $select-multiple-size-max {
-        &[size="#{$size}"] + .select-container .multiple-select > div {
+        &[size="#{$size}"] + .select-container .multiple-select .ps-container {
           @include select-size-calc($size);
         }
       }

@@ -67,6 +67,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 this.$select.after($container);
 
                 this.$element = $('<div id="' + $id + '" class="multiple-select" tabindex="0">');
+
+                if (this.options.multiDisplayList) {
+                    this.$listDisplay = this._buildListDisplay($id);
+                    this.$element.append(this.$listDisplay);
+                }
+
                 this.$element.append($scroll);
                 $container.append(this.$element);
                 $label.attr('for', $id);
@@ -96,6 +102,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         _this.$options[value].find('a').trigger('click');
                     });
                 }
+            }
+        }, {
+            key: '_buildListDisplay',
+            value: function _buildListDisplay($id) {
+                var $display = $('<div id="' + $id + '-display" class="list-display">'),
+                    $list = $('<ul>');
+                // this.$displayInput = $('<input type="text">');
+                $display.append($list);
+                // $display.append(this.$displayInput);
+                return $display;
             }
         }, {
             key: '_init',
@@ -331,7 +347,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     _this = this;
                 var unselect = false;
 
-                if (this.$select.is('select[multiple]') && (e.ctrlKey || e.isTrigger)) {
+                if (this.$select.is('select[multiple]') && ((e.ctrlKey || e.isTrigger) && this.options.multiSelectMethod == 'default' || this.options.multiSelectMethod == 'mouse-only')) {
                     if (e.ctrlKey) {
                         $.each(this.$select.val(), function (index, value) {
                             if ($option.data('value') == value) {
@@ -342,10 +358,24 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                             }
                         });
                     }
-                    if (!unselect) this.$select.val(($.isArray(this.$select.val()) ? this.$select.val() : []).concat($option.data('value')));
+                    if (!unselect) {
+                        this.$select.val(($.isArray(this.$select.val()) ? this.$select.val() : []).concat($option.data('value')));
+                        var $list = this.$listDisplay.find('ul');
+                        var label = this.$list.find('a[data-value="' + $option.data('value') + '"]').text();
+                        $list.append($('<li data-value="' + $option.data('value') + '">' + label + '</li>'));
+                    } else {
+                        var _$list = this.$listDisplay.find('ul');
+                        _$list.find('li[data-value="' + $option.data('value') + '"]').remove();
+                    }
                 } else if (this.$select.is('select[multiple]')) {
                     this.$select.val($option.data('value'));
                     this.$list.find('li a').removeClass('selected');
+                    if (this.options.multiDisplayList) {
+                        var _$list2 = this.$listDisplay.find('ul');
+                        var _label = this.$list.find('a[data-value="' + $option.data('value') + '"]').text();
+                        _$list2.empty();
+                        _$list2.append($('<li data-value="' + $option.data('value') + '">' + _label + '</li>'));
+                    }
                 } else {
                     this.$select.val($option.data('value'));
                     this.$element.val($option.text());
@@ -356,6 +386,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 this.$element.trigger('selected.zf.select');
                 this.$select.trigger('change');
                 this.$element.focus();
+
+                /*if (this.$select.is('select[multiple]') && this.options.multiDisplayList) {
+                    let $list = this.$listDisplay.find('ul'),
+                        displayDims = Foundation.Box.GetDimensions(this.$listDisplay),
+                        listDims = Foundation.Box.GetDimensions($list);
+                    this.$displayInput.css({width: displayDims.width - listDims.width});
+                    this.$displayInput.focus();
+                }*/
             }
 
             /**
@@ -378,7 +416,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     iconClass: 'fa-caret-down',
                     placeholder: '',
                     value: '',
-                    mousewheel: true
+                    mousewheel: true,
+                    multiSelectMethod: 'default', //default|mouse-only
+                    multiDisplayList: true
                 };
             }
         }]);
