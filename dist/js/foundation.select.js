@@ -239,7 +239,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             value: function _events() {
                 var _this = this;
                 this.$element.off('mousewheel.zf.select').on('mousewheel.zf.select', function (e) {
-                    if (e.originalEvent.deltaY > 0) _this._selectArrowDown(e);else _this._selectArrowUp(e);
+                    if (_this.$element.is(':focus') && _this.options.mousewheel) {
+                        if (e.originalEvent.deltaY > 0) _this._selectArrowDown(e);else _this._selectArrowUp(e);
+                    }
                 }).add(this.$dropdown).off('keybord.zf.dropdown').on('keydown.zf.select', function (e) {
                     Foundation.Keyboard.handleKey(e, 'Select', {
                         open: function open() {
@@ -325,7 +327,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 return {
                     iconClass: 'fa-caret-down',
                     placeholder: '',
-                    value: ''
+                    value: '',
+                    mousewheel: true
                 };
             }
         }]);
