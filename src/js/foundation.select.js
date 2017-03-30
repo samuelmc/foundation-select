@@ -208,7 +208,7 @@
                 });
 
             $.each(this.$options, (index, option) => {
-                var $target = $(option).find('a');
+                let $target = $(option).find('a');
                 $target.on('click', _this.select.bind(_this));
             });
 
@@ -253,7 +253,7 @@
                 });
 
             $.each(this.$options, (index, option) => {
-                var $target = $(option).find('a');
+                let $target = $(option).find('a');
                 $target.on('click', _this.select.bind(_this));
             });
 
