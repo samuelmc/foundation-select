@@ -80,6 +80,7 @@ $(document).foundation();
 |data-icon-class|'fa-caret-down'|The FontAwesome class for the select triangle icon.|
 |data-placeholder|''|Custom placeholder.|
 |data-value|''|The default value of the select.|
+|data-mousewheel|true|If set to true scrolling over the element will change the value if the element has focus.|
 
 ## Licence
 [![MIT Licence](https://img.shields.io/badge/Licence-MIT-blue.svg)](https://opensource.org/licenses/mit-license.php)
