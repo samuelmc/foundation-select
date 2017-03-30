@@ -224,7 +224,7 @@
             this.$element
                 .off('mousewheel.zf.select')
                 .on('mousewheel.zf.select', (e) => {
-                    if (_this.$element.is(':focus')) {
+                    if (_this.$element.is(':focus') && _this.options.mousewheel) {
                         if (e.originalEvent.deltaY > 0) _this._selectArrowDown(e);
                         else _this._selectArrowUp(e);
                     }
@@ -311,7 +311,8 @@
             return {
                 iconClass: 'fa-caret-down',
                 placeholder: '',
-                value: ''
+                value: '',
+                mousewheel: true,
             };
         }
     }
