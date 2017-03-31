@@ -61,7 +61,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     $label = $('label[for="' + this.$select.attr('id') + '"]'),
                     $wrapper = $('<div class="select-wrapper">'),
                     $container = $('<div class="select-container">'),
-                    $scroll = $('<div data-perfect-scrollbar>');
+                    $scroll = $('<div data-perfect-scrollbar data-theme="foundation-select">');
 
                 this.$select.wrap($wrapper);
                 this.$select.after($container);
@@ -107,10 +107,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             key: '_buildListDisplay',
             value: function _buildListDisplay($id) {
                 var $display = $('<div id="' + $id + '-display" class="list-display">'),
+                    $scroll = $('<div data-perfect-scrollbar data-suppress-scroll-y="true" data-use-both-wheel-axes="true" data-theme="foundation-multiselect-display">'),
                     $list = $('<ul>');
-                // this.$displayInput = $('<input type="text">');
-                $display.append($list);
-                // $display.append(this.$displayInput);
+
+                $list.append($('<li>&nbsp;</li>'));
+                $scroll.append($list);
+                $display.append($scroll);
                 return $display;
             }
         }, {
@@ -347,8 +349,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     _this = this;
                 var unselect = false;
 
-                if (this.$select.is('select[multiple]') && ((e.ctrlKey || e.isTrigger) && this.options.multiSelectMethod == 'default' || this.options.multiSelectMethod == 'mouse-only')) {
-                    if (e.ctrlKey) {
+                if (this.$select.is('select[multiple]') && ((e.ctrlKey || e.isTrigger) && this.options.multiSelectMethod === 'default' || this.options.multiSelectMethod === 'mouse-only')) {
+                    if (e.ctrlKey || this.options.multiSelectMethod === 'mouse-only') {
                         $.each(this.$select.val(), function (index, value) {
                             if ($option.data('value') == value) {
                                 var tempValue = _this.$select.val();
@@ -360,21 +362,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     }
                     if (!unselect) {
                         this.$select.val(($.isArray(this.$select.val()) ? this.$select.val() : []).concat($option.data('value')));
-                        var $list = this.$listDisplay.find('ul');
-                        var label = this.$list.find('a[data-value="' + $option.data('value') + '"]').text();
-                        $list.append($('<li data-value="' + $option.data('value') + '">' + label + '</li>'));
+                        this._setListDisplayItem($option, false);
                     } else {
-                        var _$list = this.$listDisplay.find('ul');
-                        _$list.find('li[data-value="' + $option.data('value') + '"]').remove();
+                        var $list = this.$listDisplay.find('ul');
+                        $list.find('li[data-value="' + $option.data('value') + '"]').remove();
                     }
                 } else if (this.$select.is('select[multiple]')) {
                     this.$select.val($option.data('value'));
                     this.$list.find('li a').removeClass('selected');
                     if (this.options.multiDisplayList) {
-                        var _$list2 = this.$listDisplay.find('ul');
-                        var _label = this.$list.find('a[data-value="' + $option.data('value') + '"]').text();
-                        _$list2.empty();
-                        _$list2.append($('<li data-value="' + $option.data('value') + '">' + _label + '</li>'));
+                        this._setListDisplayItem($option, true);
                     }
                 } else {
                     this.$select.val($option.data('value'));
@@ -386,14 +383,44 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 this.$element.trigger('selected.zf.select');
                 this.$select.trigger('change');
                 this.$element.focus();
+            }
+        }, {
+            key: '_unSelect',
+            value: function _unSelect(e) {
+                var _this = this;
+                var $item = $(e.currentTarget).parent(),
+                    $option = this.$list.find('a[data-value="' + $item.data('value') + '"]'),
+                    $list = this.$listDisplay.find('ul');
 
-                /*if (this.$select.is('select[multiple]') && this.options.multiDisplayList) {
-                    let $list = this.$listDisplay.find('ul'),
-                        displayDims = Foundation.Box.GetDimensions(this.$listDisplay),
-                        listDims = Foundation.Box.GetDimensions($list);
-                    this.$displayInput.css({width: displayDims.width - listDims.width});
-                    this.$displayInput.focus();
-                }*/
+                $.each(this.$select.val(), function (index, value) {
+                    if ($option.data('value') == value) {
+                        var tempValue = _this.$select.val();
+                        tempValue.splice(index, 1);
+                        _this.$select.val(tempValue);
+                    }
+                });
+
+                $list.find('li[data-value="' + $option.data('value') + '"]').remove();
+                $option.removeClass('selected');
+                this.$element.trigger('selected.zf.select');
+                this.$select.trigger('change');
+                this.$element.focus();
+            }
+        }, {
+            key: '_setListDisplayItem',
+            value: function _setListDisplayItem($option, empty) {
+                var $list = this.$listDisplay.find('ul'),
+                    label = this.$list.find('a[data-value="' + $option.data('value') + '"]').text(),
+                    $unselect = $('<a data-unselect>&times;</a>'),
+                    $item = $('<li data-value="' + $option.data('value') + '">' + label + '</li>');
+                if (empty) {
+                    $list.empty();
+                    $list.append($('<li>&nbsp;</li>'));
+                }
+                $item.append($unselect);
+                $list.append($item);
+
+                $unselect.on('click', this._unSelect.bind(this));
             }
 
             /**

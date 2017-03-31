@@ -7,7 +7,8 @@ var minifyJs    = require('gulp-uglify/minifier');
 var rename      = require('gulp-rename');
 
 var sassPaths = [
-    'bower_components/foundation-sites/scss'
+    'bower_components/foundation-sites/scss',
+    'bower_components/foundation-perfect-scrollbar/src/scss'
 ];
 
 gulp.task('sass', function () {
