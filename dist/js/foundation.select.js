@@ -208,7 +208,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             value: function _addOption($option, $parent) {
                 var value = $option.val(),
                     text = $option.text();
-
                 if (value == '') {
                     this.options.placeholder = this.options.placeholder == '' ? text : this.options.placeholder;
                     return;
@@ -460,7 +459,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     placeholder: '',
                     value: '',
                     mousewheel: true,
-                    dropdownOffset: 0
+                    dropdownOffset: 0,
                     multiSelectMethod: 'default', //default|mouse-only
                     multiDisplayList: true
                 };
