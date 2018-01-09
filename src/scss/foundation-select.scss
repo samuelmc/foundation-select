@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 @import "foundation";
+@import "plugin/foundation-perfect-scrollbar";
 @import "plugin/foundation-select";
 
 @include foundation-select;
