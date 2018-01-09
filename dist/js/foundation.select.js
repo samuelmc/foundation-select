@@ -141,7 +141,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     'id': $ddId,
                     'class': 'select-dropdown',
                     'data-dropdown': '',
-                    'data-v-offset': 0,
+                    'data-v-offset': this.options.dropdownOffset,
                     'data-h-offset': 0,
                     'data-close-on-click': true
                 });
@@ -153,6 +153,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                 this.$options = {};
                 this.$autoSelect = [];
+                this._setPlaceholderOption();
                 this.$select.find('> *').each(function (index, option) {
                     if ($(option).is('optgroup')) {
                         _this._addGroup($(option), _this.$list);
@@ -172,6 +173,17 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     $.each(this.$autoSelect, function (index, value) {
                         _this.$options[value].find('a').trigger('click');
                     });
+                }
+            }
+        }, {
+            key: '_setPlaceholderOption',
+            value: function _setPlaceholderOption() {
+                var hasEmptyOption = void 0;
+                this.$select.find('option').each(function (index, option) {
+                    if ($(option).val() == '') hasEmptyOption = true;
+                });
+                if (!hasEmptyOption && this.options.placeholder != '') {
+                    this.$select.prepend($('<option value="">' + this.options.placeholder + '</option>'));
                 }
             }
         }, {
@@ -335,6 +347,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
                 });
 
+                this.$dropdown.on('show.zf.dropdown', function () {
+                    _this.$element.focus();
+                });
+
                 $.each(this.$options, function (index, option) {
                     var $target = $(option).find('a');
                     $target.on('click', _this.select.bind(_this));
@@ -444,6 +460,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     placeholder: '',
                     value: '',
                     mousewheel: true,
+                    dropdownOffset: 0
                     multiSelectMethod: 'default', //default|mouse-only
                     multiDisplayList: true
                 };

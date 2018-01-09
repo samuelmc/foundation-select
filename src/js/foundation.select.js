@@ -130,7 +130,7 @@
                 'id': $ddId,
                 'class': 'select-dropdown',
                 'data-dropdown': '',
-                'data-v-offset': 0,
+                'data-v-offset': this.options.dropdownOffset,
                 'data-h-offset': 0,
                 'data-close-on-click': true
             });
@@ -142,6 +142,7 @@
 
             this.$options = {};
             this.$autoSelect = [];
+            this._setPlaceholderOption();
             this.$select.find('> *').each((index, option) => {
                 if ($(option).is('optgroup')) {
                     _this._addGroup($(option), _this.$list);
@@ -163,7 +164,16 @@
                 });
             }
         }
-
+      
+        _setPlaceholderOption() {
+            let hasEmptyOption;
+            this.$select.find('option').each((index, option) => {
+                if ($(option).val() == '') hasEmptyOption = true
+            });
+            if (!hasEmptyOption && this.options.placeholder != '') {
+                this.$select.prepend($(`<option value="">${this.options.placeholder}</option>`));
+            }
+        }
         _addGroup($group, $parent) {
             let _this = this,
                 label = $group.attr('label'),
@@ -183,7 +193,6 @@
         _addOption($option, $parent) {
             let value = $option.val(),
                 text = $option.text();
-
             if (value == '') {
                 this.options.placeholder = this.options.placeholder == '' ? text : this.options.placeholder;
                 return;
@@ -319,6 +328,8 @@
                     });
                 });
 
+            this.$dropdown.on('show.zf.dropdown', () => { _this.$element.focus(); });
+
             $.each(this.$options, (index, option) => {
                 let $target = $(option).find('a');
                 $target.on('click', _this.select.bind(_this));
@@ -430,6 +441,7 @@
                 placeholder: '',
                 value: '',
                 mousewheel: true,
+                dropdownOffset: 0
                 multiSelectMethod: 'default', //default|mouse-only
                 multiDisplayList: true,
             };
