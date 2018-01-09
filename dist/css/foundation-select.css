@@ -46,7 +46,11 @@
       cursor: pointer;
       border-radius: 0; }
       .select-wrapper .select-container input[aria-expanded="true"] {
-        border-radius: 0 0 0 0; }
+        border-radius: 0 0 0 0;
+        border: 1px solid #8a8a8a;
+        -webkit-box-shadow: 0 0 5px #cacaca;
+                box-shadow: 0 0 5px #cacaca;
+        outline: none; }
     .select-wrapper .select-container .select-dropdown, .select-wrapper .select-container .multiple-select {
       background-color: #fefefe;
       border: 1px solid #cacaca;
@@ -151,7 +155,8 @@
       right: 0;
       color: #8a8a8a;
       padding: 0.5rem;
-      line-height: 1.5;
+      line-height: 1.4375rem;
       width: 2.5rem;
       text-align: center;
-      cursor: pointer; }
+      cursor: pointer;
+      vertical-align: bottom; }
