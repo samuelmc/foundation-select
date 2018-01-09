@@ -7,6 +7,7 @@ $select-background: $input-background !default;
 $select-color: $input-color !default;
 $select-border: $input-border !default;
 $select-shadow: $input-shadow !default;
+$select-radius: $input-radius !default;
 $select-border-focus: $input-border-focus !default;
 $select-shadow-focus: $input-shadow-focus !default;
 $select-option-hover-color: $select-color !default;
@@ -25,7 +26,21 @@ $select-multiple-size-max: 12 !default;
   max-height: select-size-calc($size);
 }
 
-@mixin select-dropdown {
+@mixin select-dropdown (
+  $select-background: $select-background,
+  $select-color: $select-color,
+  $select-border: $select-border,
+  $select-shadow: $select-shadow,
+  $select-radius: $select-radius,
+  $select-border-focus: $select-border-focus,
+  $select-shadow-focus: $select-shadow-focus,
+  $select-option-hover-color: $select-option-hover-color,
+  $select-option-selected-color: $select-option-selected-color,
+  $select-option-hover-background: $select-option-hover-background,
+  $select-option-selected-background: $select-option-selected-background,
+  $select-dropdown-height: $select-dropdown-height,
+  $select-multiple-size-default: $select-multiple-size-default
+) {
   background-color: $select-background;
   border: $select-border;
   box-shadow: $select-shadow;
@@ -57,7 +72,7 @@ $select-multiple-size-max: 12 !default;
           color: $select-color;
           padding: $form-spacing / 2;
           font-size: $input-font-size;
-          line-height: $global-lineheight;
+          line-height: $input-line-height;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -75,21 +90,52 @@ $select-multiple-size-max: 12 !default;
   }
 }
 
-@mixin select-container {
+@mixin select-container (
+  $select-background: $select-background,
+  $select-color: $select-color,
+  $select-border: $select-border,
+  $select-shadow: $select-shadow,
+  $select-radius: $select-radius,
+  $select-border-focus: $select-border-focus,
+  $select-shadow-focus: $select-shadow-focus,
+  $select-option-hover-color: $select-option-hover-color,
+  $select-option-selected-color: $select-option-selected-color,
+  $select-option-hover-background: $select-option-hover-background,
+  $select-option-selected-background: $select-option-selected-background,
+  $select-dropdown-height: $select-dropdown-height,
+  $select-multiple-size-default: $select-multiple-size-default
+) {
   position: relative;
 
   input {
-    padding-right: rem-calc($input-font-size * $global-lineheight) + $form-spacing;
+    padding-right: rem-calc($input-font-size * $input-line-height) + $form-spacing;
     background: $input-background;
     cursor: pointer;
     border-radius: $select-radius;
     &[aria-expanded="true"] {
       border-radius: $select-radius $select-radius 0 0;
+      border: $input-border-focus;
+      box-shadow: $input-shadow-focus;
+      outline: none;
     }
   }
 
   .select-dropdown, .multiple-select {
-    @include select-dropdown;
+    @include select-dropdown(
+      $select-background: $select-background,
+      $select-color: $select-color,
+      $select-border: $select-border,
+      $select-shadow: $select-shadow,
+      $select-radius: $select-radius,
+      $select-border-focus: $select-border-focus,
+      $select-shadow-focus: $select-shadow-focus,
+      $select-option-hover-color: $select-option-hover-color,
+      $select-option-selected-color: $select-option-selected-color,
+      $select-option-hover-background: $select-option-hover-background,
+      $select-option-selected-background: $select-option-selected-background,
+      $select-dropdown-height: $select-dropdown-height,
+      $select-multiple-size-default: $select-multiple-size-default
+    );
   }
 
   .multiple-select {
@@ -136,15 +182,31 @@ $select-multiple-size-max: 12 !default;
     right: 0;
     color: $select-triangle-color;
     padding: $form-spacing / 2;
-    line-height: $global-lineheight;
-    width: rem-calc($input-font-size * $global-lineheight) + $form-spacing;
+    line-height: (rem-calc($input-font-size * $input-line-height) - rem-calc(1));
+    width: rem-calc($input-font-size * $input-line-height) + $form-spacing;
     text-align: center;
     cursor: pointer;
+    vertical-align: bottom;
   }
 
 }
 
-@mixin foundation-select {
+@mixin foundation-select (
+  $select-background: $select-background,
+  $select-color: $select-color,
+  $select-border: $select-border,
+  $select-shadow: $select-shadow,
+  $select-radius: $select-radius,
+  $select-border-focus: $select-border-focus,
+  $select-shadow-focus: $select-shadow-focus,
+  $select-option-hover-color: $select-option-hover-color,
+  $select-option-selected-color: $select-option-selected-color,
+  $select-option-hover-background: $select-option-hover-background,
+  $select-option-selected-background: $select-option-selected-background,
+  $select-dropdown-height: $select-dropdown-height,
+  $select-multiple-size-default: $select-multiple-size-default,
+  $select-multiple-size-max: $select-multiple-size-max
+) {
   .select-wrapper {
     position: relative;
     select[data-select] {
@@ -159,7 +221,21 @@ $select-multiple-size-max: 12 !default;
       }
     }
     .select-container {
-      @include select-container;
+      @include select-container(
+        $select-background: $select-background,
+        $select-color: $select-color,
+        $select-border: $select-border,
+        $select-shadow: $select-shadow,
+        $select-radius: $select-radius,
+        $select-border-focus: $select-border-focus,
+        $select-shadow-focus: $select-shadow-focus,
+        $select-option-hover-color: $select-option-hover-color,
+        $select-option-selected-color: $select-option-selected-color,
+        $select-option-hover-background: $select-option-hover-background,
+        $select-option-selected-background: $select-option-selected-background,
+        $select-dropdown-height: $select-dropdown-height,
+        $select-multiple-size-default: $select-multiple-size-default
+      );
     }
   }
 }

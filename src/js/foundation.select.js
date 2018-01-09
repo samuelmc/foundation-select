@@ -106,7 +106,7 @@
                 'id': $ddId,
                 'class': 'select-dropdown',
                 'data-dropdown': '',
-                'data-v-offset': 0,
+                'data-v-offset': this.options.dropdownOffset,
                 'data-h-offset': 0,
                 'data-close-on-click': true
             });
@@ -118,6 +118,7 @@
 
             this.$options = {};
             this.$autoSelect = [];
+            this._setPlaceholderOption();
             this.$select.find('option').each(this._setOption.bind(this));
 
             this.$element.attr('placeholder', this.options.placeholder);
@@ -130,6 +131,16 @@
                 $.each(this.$autoSelect, (index, value) => {
                     _this.$options[value].find('a').trigger('click');
                 });
+            }
+        }
+
+        _setPlaceholderOption() {
+            let hasEmptyOption;
+            this.$select.find('option').each((index, option) => {
+                if ($(option).val() == '') hasEmptyOption = true
+            });
+            if (!hasEmptyOption && this.options.placeholder != '') {
+                this.$select.prepend($(`<option value="">${this.options.placeholder}</option>`));
             }
         }
 
@@ -252,6 +263,8 @@
                     });
                 });
 
+            this.$dropdown.on('show.zf.dropdown', () => { _this.$element.focus(); });
+
             $.each(this.$options, (index, option) => {
                 let $target = $(option).find('a');
                 $target.on('click', _this.select.bind(_this));
@@ -313,6 +326,7 @@
                 placeholder: '',
                 value: '',
                 mousewheel: true,
+                dropdownOffset: 0
             };
         }
     }
