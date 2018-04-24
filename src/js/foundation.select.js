@@ -132,7 +132,9 @@
                 'data-dropdown': '',
                 'data-v-offset': this.options.dropdownOffset,
                 'data-h-offset': 0,
-                'data-close-on-click': true
+                'data-close-on-click': true,
+                'data-position': 'bottom',
+                'data-alignment': 'right'
             });
             this.$dropdown.append(this.$scroll);
             $container.append(this.$dropdown);
