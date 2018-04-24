@@ -441,7 +441,7 @@
                 placeholder: '',
                 value: '',
                 mousewheel: true,
-                dropdownOffset: 0
+                dropdownOffset: 0,
                 multiSelectMethod: 'default', //default|mouse-only
                 multiDisplayList: true,
             };
