@@ -12,31 +12,31 @@
   position: relative; }
   .select-wrapper select[data-select] {
     display: none; }
-    .select-wrapper select[data-select][size] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size] + .select-container .multiple-select .ps-container {
       max-height: 30rem; }
-    .select-wrapper select[data-select][size="1"] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size="1"] + .select-container .multiple-select .ps-container {
       max-height: 2.5rem; }
-    .select-wrapper select[data-select][size="2"] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size="2"] + .select-container .multiple-select .ps-container {
       max-height: 5rem; }
-    .select-wrapper select[data-select][size="3"] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size="3"] + .select-container .multiple-select .ps-container {
       max-height: 7.5rem; }
-    .select-wrapper select[data-select][size="4"] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size="4"] + .select-container .multiple-select .ps-container {
       max-height: 10rem; }
-    .select-wrapper select[data-select][size="5"] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size="5"] + .select-container .multiple-select .ps-container {
       max-height: 12.5rem; }
-    .select-wrapper select[data-select][size="6"] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size="6"] + .select-container .multiple-select .ps-container {
       max-height: 15rem; }
-    .select-wrapper select[data-select][size="7"] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size="7"] + .select-container .multiple-select .ps-container {
       max-height: 17.5rem; }
-    .select-wrapper select[data-select][size="8"] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size="8"] + .select-container .multiple-select .ps-container {
       max-height: 20rem; }
-    .select-wrapper select[data-select][size="9"] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size="9"] + .select-container .multiple-select .ps-container {
       max-height: 22.5rem; }
-    .select-wrapper select[data-select][size="10"] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size="10"] + .select-container .multiple-select .ps-container {
       max-height: 25rem; }
-    .select-wrapper select[data-select][size="11"] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size="11"] + .select-container .multiple-select .ps-container {
       max-height: 27.5rem; }
-    .select-wrapper select[data-select][size="12"] + .select-container .multiple-select > div {
+    .select-wrapper select[data-select][size="12"] + .select-container .multiple-select .ps-container {
       max-height: 30rem; }
   .select-wrapper .select-container {
     position: relative; }
@@ -117,26 +117,67 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis; }
-            .select-wrapper .select-container .select-dropdown > div ul li a:hover, .select-wrapper .select-container .select-dropdown > div ul li a:focus, .select-wrapper .select-container .multiple-select > div ul li a:hover, .select-wrapper .select-container .multiple-select > div ul li a:focus {
-              color: #0a0a0a;
-              background: rgba(118, 118, 118, 0.15); }
             .select-wrapper .select-container .select-dropdown > div ul li a.selected, .select-wrapper .select-container .multiple-select > div ul li a.selected {
               color: #0a0a0a;
               background: rgba(118, 118, 118, 0.15); }
+            .select-wrapper .select-container .select-dropdown > div ul li a:not(.group-label):hover, .select-wrapper .select-container .select-dropdown > div ul li a:not(.group-label):focus, .select-wrapper .select-container .multiple-select > div ul li a:not(.group-label):hover, .select-wrapper .select-container .multiple-select > div ul li a:not(.group-label):focus {
+              color: #0a0a0a;
+              background: rgba(118, 118, 118, 0.25); }
+            .select-wrapper .select-container .select-dropdown > div ul li a.group-label, .select-wrapper .select-container .multiple-select > div ul li a.group-label {
+              font-weight: bold;
+              font-size: 1.1em; }
+              .select-wrapper .select-container .select-dropdown > div ul li a.group-label + ul li a, .select-wrapper .select-container .multiple-select > div ul li a.group-label + ul li a {
+                padding-left: 1.25em; }
     .select-wrapper .select-container .multiple-select {
       visibility: visible;
       border-radius: 0;
       border: 1px solid #cacaca;
       position: relative;
       z-index: 0; }
+      .select-wrapper .select-container .multiple-select .list-display {
+        border-bottom: 1px solid #cacaca;
+        height: 2.5rem;
+        width: 100%; }
+        .select-wrapper .select-container .multiple-select .list-display > .ps-container {
+          height: 2.5rem;
+          width: 100%; }
+        .select-wrapper .select-container .multiple-select .list-display ul {
+          display: inline-block;
+          padding: 0.25rem;
+          font-size: 1rem;
+          line-height: 1.5;
+          white-space: nowrap; }
+          .select-wrapper .select-container .multiple-select .list-display ul li {
+            display: inline-block;
+            margin: 0.25rem;
+            background: #e8e8e8;
+            padding-left: 0.5rem; }
+            .select-wrapper .select-container .multiple-select .list-display ul li:hover {
+              background: #ddd; }
+            .select-wrapper .select-container .multiple-select .list-display ul li:first-child {
+              width: 0;
+              padding: 0;
+              margin-left: 0;
+              margin-right: 0; }
+            .select-wrapper .select-container .multiple-select .list-display ul li a[data-unselect] {
+              display: inline-block;
+              margin: 0.25rem;
+              padding: 0;
+              width: 1rem;
+              line-height: 1;
+              text-align: center;
+              vertical-align: middle; }
       .select-wrapper .select-container .multiple-select:focus {
         border: 1px solid #8a8a8a;
-        -webkit-box-shadow: 0 0 5px #cacaca;
-                box-shadow: 0 0 5px #cacaca;
         outline: none; }
-      .select-wrapper .select-container .multiple-select > div {
+        .select-wrapper .select-container .multiple-select:focus .list-display {
+          border-bottom: 1px solid #8a8a8a; }
+        .select-wrapper .select-container .multiple-select:focus .ps-container {
+          -webkit-box-shadow: 0 0 5px #cacaca;
+                  box-shadow: 0 0 5px #cacaca; }
+      .select-wrapper .select-container .multiple-select > .ps-container {
         max-height: 12.5rem; }
-        .select-wrapper .select-container .multiple-select > div ul li a:before {
+        .select-wrapper .select-container .multiple-select > .ps-container ul li a:not(.group-label):before {
           content: "";
           display: inline-block;
           font-family: FontAwesome, sans-serif;
@@ -147,7 +188,7 @@
           width: 1.5em;
           text-align: center;
           vertical-align: baseline; }
-        .select-wrapper .select-container .multiple-select > div ul li a.selected:before {
+        .select-wrapper .select-container .multiple-select > .ps-container ul li a.selected:before {
           content: "\f00c"; }
     .select-wrapper .select-container > i.select-triangle {
       position: absolute;
@@ -160,3 +201,199 @@
       text-align: center;
       cursor: pointer;
       vertical-align: bottom; }
+  .select-wrapper .ps-theme-foundation-select {
+    position: absolute;
+    height: 100%;
+    -ms-touch-action: none;
+    touch-action: none;
+    overflow: hidden !important;
+    -ms-overflow-style: none; }
+    @supports (-ms-overflow-style: none) {
+      .select-wrapper .ps-theme-foundation-select {
+        overflow: auto !important; } }
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+      .select-wrapper .ps-theme-foundation-select {
+        overflow: auto !important; } }
+    .select-wrapper .ps-theme-foundation-select.ps-active-x > .ps-scrollbar-x-rail,
+    .select-wrapper .ps-theme-foundation-select.ps-active-y > .ps-scrollbar-y-rail {
+      display: block;
+      background-color: transparent; }
+    .select-wrapper .ps-theme-foundation-select.ps-in-scrolling {
+      pointer-events: none; }
+      .select-wrapper .ps-theme-foundation-select.ps-in-scrolling.ps-x > .ps-scrollbar-x-rail {
+        background-color: #eee;
+        opacity: 0.9; }
+        .select-wrapper .ps-theme-foundation-select.ps-in-scrolling.ps-x > .ps-scrollbar-x-rail > .ps-scrollbar-x {
+          background-color: #999; }
+      .select-wrapper .ps-theme-foundation-select.ps-in-scrolling.ps-y > .ps-scrollbar-y-rail {
+        background-color: #eee;
+        opacity: 0.9; }
+        .select-wrapper .ps-theme-foundation-select.ps-in-scrolling.ps-y > .ps-scrollbar-y-rail > .ps-scrollbar-y {
+          background-color: #999; }
+    .select-wrapper .ps-theme-foundation-select > .ps-scrollbar-x-rail {
+      display: none;
+      position: absolute;
+      /* please don't change 'position' */
+      opacity: 0;
+      -webkit-transition: background-color .2s linear, opacity .2s linear;
+      transition: background-color .2s linear, opacity .2s linear;
+      bottom: 0px;
+      /* there must be 'bottom' for ps-scrollbar-x-rail */
+      height: 15px; }
+      .select-wrapper .ps-theme-foundation-select > .ps-scrollbar-x-rail > .ps-scrollbar-x {
+        position: absolute;
+        /* please don't change 'position' */
+        background-color: #aaa;
+        border-radius: 6px;
+        -webkit-transition: background-color .2s linear, height .2s linear, width .2s ease-in-out, border-radius .2s ease-in-out;
+        transition: background-color .2s linear, height .2s linear, width .2s ease-in-out, border-radius .2s ease-in-out;
+        bottom: 2px;
+        /* there must be 'bottom' for ps-scrollbar-x */
+        height: 6px; }
+      .select-wrapper .ps-theme-foundation-select > .ps-scrollbar-x-rail:hover > .ps-scrollbar-x, .select-wrapper .ps-theme-foundation-select > .ps-scrollbar-x-rail:active > .ps-scrollbar-x {
+        height: 11px; }
+    .select-wrapper .ps-theme-foundation-select > .ps-scrollbar-y-rail {
+      display: none;
+      position: absolute;
+      /* please don't change 'position' */
+      opacity: 0;
+      -webkit-transition: background-color .2s linear, opacity .2s linear;
+      transition: background-color .2s linear, opacity .2s linear;
+      right: 0;
+      /* there must be 'right' for ps-scrollbar-y-rail */
+      width: 15px; }
+      .select-wrapper .ps-theme-foundation-select > .ps-scrollbar-y-rail > .ps-scrollbar-y {
+        position: absolute;
+        /* please don't change 'position' */
+        background-color: #aaa;
+        border-radius: 6px;
+        -webkit-transition: background-color .2s linear, height .2s linear, width .2s ease-in-out, border-radius .2s ease-in-out;
+        transition: background-color .2s linear, height .2s linear, width .2s ease-in-out, border-radius .2s ease-in-out;
+        right: 2px;
+        /* there must be 'right' for ps-scrollbar-y */
+        width: 6px; }
+      .select-wrapper .ps-theme-foundation-select > .ps-scrollbar-y-rail:hover > .ps-scrollbar-y, .select-wrapper .ps-theme-foundation-select > .ps-scrollbar-y-rail:active > .ps-scrollbar-y {
+        width: 11px; }
+    .select-wrapper .ps-theme-foundation-select:hover.ps-in-scrolling {
+      pointer-events: none; }
+      .select-wrapper .ps-theme-foundation-select:hover.ps-in-scrolling.ps-x > .ps-scrollbar-x-rail {
+        background-color: #eee;
+        opacity: 0.9; }
+        .select-wrapper .ps-theme-foundation-select:hover.ps-in-scrolling.ps-x > .ps-scrollbar-x-rail > .ps-scrollbar-x {
+          background-color: #999; }
+      .select-wrapper .ps-theme-foundation-select:hover.ps-in-scrolling.ps-y > .ps-scrollbar-y-rail {
+        background-color: #eee;
+        opacity: 0.9; }
+        .select-wrapper .ps-theme-foundation-select:hover.ps-in-scrolling.ps-y > .ps-scrollbar-y-rail > .ps-scrollbar-y {
+          background-color: #999; }
+    .select-wrapper .ps-theme-foundation-select:hover > .ps-scrollbar-x-rail,
+    .select-wrapper .ps-theme-foundation-select:hover > .ps-scrollbar-y-rail {
+      opacity: 0.6; }
+    .select-wrapper .ps-theme-foundation-select:hover > .ps-scrollbar-x-rail:hover {
+      background-color: #eee;
+      opacity: 0.9; }
+      .select-wrapper .ps-theme-foundation-select:hover > .ps-scrollbar-x-rail:hover > .ps-scrollbar-x {
+        background-color: #999; }
+    .select-wrapper .ps-theme-foundation-select:hover > .ps-scrollbar-y-rail:hover {
+      background-color: #eee;
+      opacity: 0.9; }
+      .select-wrapper .ps-theme-foundation-select:hover > .ps-scrollbar-y-rail:hover > .ps-scrollbar-y {
+        background-color: #999; }
+  .select-wrapper .ps-theme-foundation-multiselect-display {
+    position: absolute;
+    height: 100%;
+    -ms-touch-action: none;
+    touch-action: none;
+    overflow: hidden !important;
+    -ms-overflow-style: none; }
+    @supports (-ms-overflow-style: none) {
+      .select-wrapper .ps-theme-foundation-multiselect-display {
+        overflow: auto !important; } }
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+      .select-wrapper .ps-theme-foundation-multiselect-display {
+        overflow: auto !important; } }
+    .select-wrapper .ps-theme-foundation-multiselect-display.ps-active-x > .ps-scrollbar-x-rail,
+    .select-wrapper .ps-theme-foundation-multiselect-display.ps-active-y > .ps-scrollbar-y-rail {
+      display: block;
+      background-color: transparant; }
+    .select-wrapper .ps-theme-foundation-multiselect-display.ps-in-scrolling {
+      pointer-events: none; }
+      .select-wrapper .ps-theme-foundation-multiselect-display.ps-in-scrolling.ps-x > .ps-scrollbar-x-rail {
+        background-color: transparant;
+        opacity: 1; }
+        .select-wrapper .ps-theme-foundation-multiselect-display.ps-in-scrolling.ps-x > .ps-scrollbar-x-rail > .ps-scrollbar-x {
+          background-color: #8a8a8a; }
+      .select-wrapper .ps-theme-foundation-multiselect-display.ps-in-scrolling.ps-y > .ps-scrollbar-y-rail {
+        background-color: transparant;
+        opacity: 1; }
+        .select-wrapper .ps-theme-foundation-multiselect-display.ps-in-scrolling.ps-y > .ps-scrollbar-y-rail > .ps-scrollbar-y {
+          background-color: #8a8a8a; }
+    .select-wrapper .ps-theme-foundation-multiselect-display > .ps-scrollbar-x-rail {
+      display: none;
+      position: absolute;
+      /* please don't change 'position' */
+      opacity: 1;
+      -webkit-transition: background-color .2s linear, opacity .2s linear;
+      transition: background-color .2s linear, opacity .2s linear;
+      bottom: 1px;
+      /* there must be 'bottom' for ps-scrollbar-x-rail */
+      height: 3px; }
+      .select-wrapper .ps-theme-foundation-multiselect-display > .ps-scrollbar-x-rail > .ps-scrollbar-x {
+        position: absolute;
+        /* please don't change 'position' */
+        background-color: #cacaca;
+        border-radius: 0;
+        -webkit-transition: background-color .2s linear, height .2s linear, width .2s ease-in-out, border-radius .2s ease-in-out;
+        transition: background-color .2s linear, height .2s linear, width .2s ease-in-out, border-radius .2s ease-in-out;
+        bottom: 1px;
+        /* there must be 'bottom' for ps-scrollbar-x */
+        height: 3px; }
+      .select-wrapper .ps-theme-foundation-multiselect-display > .ps-scrollbar-x-rail:hover > .ps-scrollbar-x, .select-wrapper .ps-theme-foundation-multiselect-display > .ps-scrollbar-x-rail:active > .ps-scrollbar-x {
+        height: 4px; }
+    .select-wrapper .ps-theme-foundation-multiselect-display > .ps-scrollbar-y-rail {
+      display: none;
+      position: absolute;
+      /* please don't change 'position' */
+      opacity: 1;
+      -webkit-transition: background-color .2s linear, opacity .2s linear;
+      transition: background-color .2s linear, opacity .2s linear;
+      right: 1px;
+      /* there must be 'right' for ps-scrollbar-y-rail */
+      width: 3px; }
+      .select-wrapper .ps-theme-foundation-multiselect-display > .ps-scrollbar-y-rail > .ps-scrollbar-y {
+        position: absolute;
+        /* please don't change 'position' */
+        background-color: #cacaca;
+        border-radius: 0;
+        -webkit-transition: background-color .2s linear, height .2s linear, width .2s ease-in-out, border-radius .2s ease-in-out;
+        transition: background-color .2s linear, height .2s linear, width .2s ease-in-out, border-radius .2s ease-in-out;
+        right: 1px;
+        /* there must be 'right' for ps-scrollbar-y */
+        width: 3px; }
+      .select-wrapper .ps-theme-foundation-multiselect-display > .ps-scrollbar-y-rail:hover > .ps-scrollbar-y, .select-wrapper .ps-theme-foundation-multiselect-display > .ps-scrollbar-y-rail:active > .ps-scrollbar-y {
+        width: 4px; }
+    .select-wrapper .ps-theme-foundation-multiselect-display:hover.ps-in-scrolling {
+      pointer-events: none; }
+      .select-wrapper .ps-theme-foundation-multiselect-display:hover.ps-in-scrolling.ps-x > .ps-scrollbar-x-rail {
+        background-color: transparant;
+        opacity: 1; }
+        .select-wrapper .ps-theme-foundation-multiselect-display:hover.ps-in-scrolling.ps-x > .ps-scrollbar-x-rail > .ps-scrollbar-x {
+          background-color: #8a8a8a; }
+      .select-wrapper .ps-theme-foundation-multiselect-display:hover.ps-in-scrolling.ps-y > .ps-scrollbar-y-rail {
+        background-color: transparant;
+        opacity: 1; }
+        .select-wrapper .ps-theme-foundation-multiselect-display:hover.ps-in-scrolling.ps-y > .ps-scrollbar-y-rail > .ps-scrollbar-y {
+          background-color: #8a8a8a; }
+    .select-wrapper .ps-theme-foundation-multiselect-display:hover > .ps-scrollbar-x-rail,
+    .select-wrapper .ps-theme-foundation-multiselect-display:hover > .ps-scrollbar-y-rail {
+      opacity: 1; }
+    .select-wrapper .ps-theme-foundation-multiselect-display:hover > .ps-scrollbar-x-rail:hover {
+      background-color: transparant;
+      opacity: 1; }
+      .select-wrapper .ps-theme-foundation-multiselect-display:hover > .ps-scrollbar-x-rail:hover > .ps-scrollbar-x {
+        background-color: #8a8a8a; }
+    .select-wrapper .ps-theme-foundation-multiselect-display:hover > .ps-scrollbar-y-rail:hover {
+      background-color: transparant;
+      opacity: 1; }
+      .select-wrapper .ps-theme-foundation-multiselect-display:hover > .ps-scrollbar-y-rail:hover > .ps-scrollbar-y {
+        background-color: #8a8a8a; }

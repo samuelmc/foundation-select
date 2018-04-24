@@ -12,11 +12,100 @@ $select-border-focus: $input-border-focus !default;
 $select-shadow-focus: $input-shadow-focus !default;
 $select-option-hover-color: $select-color !default;
 $select-option-selected-color: $select-option-hover-color !default;
-$select-option-hover-background: rgba($secondary-color, .15) !default;
-$select-option-selected-background: $select-option-hover-background !default;
+$select-option-hover-background: rgba($secondary-color, .25) !default;
+$select-option-selected-background: rgba($secondary-color, .15) !default;
+$select-optgroup-indent: 1.25em !default;
 $select-dropdown-height: rem-calc(300) !default;
 $select-multiple-size-default: 5 !default;
 $select-multiple-size-max: 12 !default;
+
+
+// Custom scrollbar styles
+
+// Select dropdown
+// Colors
+$foundation-select-ps-border-radius: $ps-border-radius !default;
+$foundation-select-ps-rail-default-opacity: $ps-rail-default-opacity !default;
+$foundation-select-ps-rail-container-hover-opacity: $ps-rail-container-hover-opacity !default;
+$foundation-select-ps-rail-hover-opacity: $ps-rail-hover-opacity !default;
+
+$foundation-select-ps-bar-bg: $ps-bar-bg !default;
+$foundation-select-ps-bar-container-hover-bg: $ps-bar-container-hover-bg !default;
+$foundation-select-ps-bar-hover-bg: $ps-bar-hover-bg !default;
+$foundation-select-ps-rail-hover-bg: $ps-rail-hover-bg !default;
+
+// Sizes
+$foundation-select-ps-scrollbar-x-rail-bottom: $ps-scrollbar-x-rail-bottom !default;
+$foundation-select-ps-scrollbar-x-rail-height: $ps-scrollbar-x-rail-height !default;
+$foundation-select-ps-scrollbar-x-bottom: $ps-scrollbar-x-bottom !default;
+$foundation-select-ps-scrollbar-x-height: $ps-scrollbar-x-height !default;
+$foundation-select-ps-scrollbar-x-hover-height: $ps-scrollbar-x-hover-height !default;
+
+$foundation-select-ps-scrollbar-y-rail-right: $ps-scrollbar-y-rail-right !default;
+$foundation-select-ps-scrollbar-y-rail-width: $ps-scrollbar-y-rail-width !default;
+$foundation-select-ps-scrollbar-y-right: $ps-scrollbar-y-right !default;
+$foundation-select-ps-scrollbar-y-width: $ps-scrollbar-y-width !default;
+$foundation-select-ps-scrollbar-y-hover-width: $ps-scrollbar-y-hover-width !default;
+
+$ps-theme-foundation-select: (
+        border-radius: $foundation-select-ps-border-radius,
+        rail-default-opacity: $foundation-select-ps-rail-default-opacity,
+        rail-container-hover-opacity: $foundation-select-ps-rail-container-hover-opacity,
+        rail-hover-opacity: $foundation-select-ps-rail-hover-opacity,
+        bar-bg: $foundation-select-ps-bar-bg,
+        bar-container-hover-bg: $foundation-select-ps-bar-container-hover-bg,
+        bar-hover-bg: $foundation-select-ps-bar-hover-bg,
+        rail-hover-bg: $foundation-select-ps-rail-hover-bg,
+        scrollbar-x-rail-bottom: $foundation-select-ps-scrollbar-x-rail-bottom,
+        scrollbar-x-rail-height: $foundation-select-ps-scrollbar-x-rail-height,
+        scrollbar-x-bottom: $foundation-select-ps-scrollbar-x-bottom,
+        scrollbar-x-height: $foundation-select-ps-scrollbar-x-height,
+        scrollbar-x-hover-height: $foundation-select-ps-scrollbar-x-hover-height,
+        scrollbar-y-rail-right: $foundation-select-ps-scrollbar-y-rail-right,
+        scrollbar-y-rail-width: $foundation-select-ps-scrollbar-y-rail-width,
+        scrollbar-y-right: $foundation-select-ps-scrollbar-y-right,
+        scrollbar-y-width: $foundation-select-ps-scrollbar-y-width,
+        scrollbar-y-hover-width: $foundation-select-ps-scrollbar-y-hover-width,
+);
+
+// Multiselect display
+// Colors
+$multiselect-display-ps-border-radius: 0 !default;
+
+$multiselect-display-ps-rail-default-opacity: 1 !default;
+$multiselect-display-ps-rail-container-hover-opacity: 1 !default;
+$multiselect-display-ps-rail-hover-opacity: 1 !default;
+
+$multiselect-display-ps-bar-bg: transparant !default;
+$multiselect-display-ps-bar-container-hover-bg: get-border-value($input-border, color) !default;
+$multiselect-display-ps-bar-hover-bg: get-border-value($input-border-focus, color) !default;
+$multiselect-display-ps-rail-hover-bg: transparant !default;
+
+// Sizes
+$multiselect-display-ps-rail-distance: 1px !default;
+$multiselect-display-ps-rail-thikness: 3px !default;
+$multiselect-display-ps-rail-thikness-hover: 4px !default;
+
+$ps-theme-foundation-multiselect-display: (
+        border-radius: $multiselect-display-ps-border-radius,
+        rail-default-opacity: $multiselect-display-ps-rail-default-opacity,
+        rail-container-hover-opacity: $multiselect-display-ps-rail-container-hover-opacity,
+        rail-hover-opacity: $multiselect-display-ps-rail-hover-opacity,
+        bar-bg: $multiselect-display-ps-bar-bg,
+        bar-container-hover-bg: $multiselect-display-ps-bar-container-hover-bg,
+        bar-hover-bg: $multiselect-display-ps-bar-hover-bg,
+        rail-hover-bg: $multiselect-display-ps-rail-hover-bg,
+        scrollbar-x-rail-bottom: $multiselect-display-ps-rail-distance,
+        scrollbar-x-rail-height: $multiselect-display-ps-rail-thikness,
+        scrollbar-x-bottom: $multiselect-display-ps-rail-distance,
+        scrollbar-x-height: $multiselect-display-ps-rail-thikness,
+        scrollbar-x-hover-height: $multiselect-display-ps-rail-thikness-hover,
+        scrollbar-y-rail-right: $multiselect-display-ps-rail-distance,
+        scrollbar-y-rail-width: $multiselect-display-ps-rail-thikness,
+        scrollbar-y-right: $multiselect-display-ps-rail-distance,
+        scrollbar-y-width: $multiselect-display-ps-rail-thikness,
+        scrollbar-y-hover-width: $multiselect-display-ps-rail-thikness-hover,
+);
 
 @function select-size-calc($size) {
   @return $size * ($form-spacing + ($input-font-size * $global-lineheight));
@@ -76,13 +165,26 @@ $select-multiple-size-max: 12 !default;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          &:hover, &:focus{
-            color: $select-option-hover-color;
-            background: $select-option-hover-background;
-          }
           &.selected {
             color: $select-option-selected-color;
             background: $select-option-selected-background;
+          }
+          &:not(.group-label) {
+            &:hover, &:focus{
+              color: $select-option-hover-color;
+              background: $select-option-hover-background;
+            }
+          }
+
+          &.group-label {
+            font-weight: bold;
+            font-size: 1.1em;
+
+            & + ul {
+              li a {
+                padding-left: $select-optgroup-indent;
+              }
+            }
           }
         }
       }
@@ -144,18 +246,72 @@ $select-multiple-size-max: 12 !default;
     border: $input-border;
     position: relative;
     z-index: 0;
+
+    .list-display {
+      border-bottom: $input-border;
+      height: select-size-calc(1);
+      width: 100%;
+      > .ps-container {
+        height: select-size-calc(1);
+        width: 100%;
+      }
+
+      ul {
+        display: inline-block;
+        padding: $form-spacing / 4;
+        font-size: $input-font-size;
+        line-height: $global-lineheight;
+        white-space: nowrap;
+
+        li {
+          display: inline-block;
+          margin: $form-spacing / 4;
+          background: #e8e8e8;
+          padding-left: $form-spacing / 2;
+
+          &:hover {
+            background: #ddd;
+          }
+
+          &:first-child {
+            width: 0;
+            padding: 0;
+            margin-left: 0;
+            margin-right: 0;
+          }
+
+          a[data-unselect] {
+            display: inline-block;
+            margin: $form-spacing / 4;
+            padding: 0;
+            width: $input-font-size;
+            line-height: 1;
+            text-align: center;
+            vertical-align: middle;
+          }
+        }
+      }
+    }
     &:focus {
       border: $input-border-focus;
-      box-shadow: $input-shadow-focus;
       outline: none;
+
+      .list-display {
+        border-bottom: $input-border-focus;
+      }
+
+      .ps-container {
+        box-shadow: $input-shadow-focus;
+      }
     }
-    & > div {
+
+    > .ps-container {
       @include select-size-calc($select-multiple-size-default);
 
       ul {
         li {
           a {
-            &:before {
+            &:not(.group-label):before {
               content: "";
               display: inline-block;
               font-family: FontAwesome, sans-serif;
@@ -169,6 +325,9 @@ $select-multiple-size-max: 12 !default;
             }
             &.selected:before {
               content: "\f00c";
+            }
+            &.group-label {
+
             }
           }
         }
@@ -211,11 +370,11 @@ $select-multiple-size-max: 12 !default;
     position: relative;
     select[data-select] {
       display: none;
-      &[size] + .select-container .multiple-select > div {
+      &[size] + .select-container .multiple-select .ps-container {
         @include select-size-calc($select-multiple-size-max);
       }
       @for $size from 1 through $select-multiple-size-max {
-        &[size="#{$size}"] + .select-container .multiple-select > div {
+        &[size="#{$size}"] + .select-container .multiple-select .ps-container {
           @include select-size-calc($size);
         }
       }
@@ -236,6 +395,14 @@ $select-multiple-size-max: 12 !default;
         $select-dropdown-height: $select-dropdown-height,
         $select-multiple-size-default: $select-multiple-size-default
       );
+    }
+
+    .ps-theme-foundation-select{
+      @include ps-container($ps-theme-foundation-select);
+    }
+
+    .ps-theme-foundation-multiselect-display {
+      @include ps-container($ps-theme-foundation-multiselect-display);
     }
   }
 }
